@@ -33,7 +33,7 @@ export type Category = ListMetaData & {
   name: string
 }
 
-export type Article = ListMetaData & {
+export type Blog = ListMetaData & {
   title: string
   categories: Category[]
   toc_visible: boolean
@@ -48,13 +48,13 @@ export type Article = ListMetaData & {
     width: number
   }
   writer: Author
-  related_blogs: Article[]
+  related_blogs: Blog[]
 }
 
-export type PopularArticles = MetaData & {
-  articles: Article[]
+export type PopularBlogs = MetaData & {
+  Blogs: Blog[]
 }
 
 export type Authors = ListSchema<Author>
 export type Categoy = ListSchema<Category>
-export type Articles = ListSchema<Article>
+export type Blogs = ListSchema<Blog>
