@@ -1,4 +1,4 @@
-import { InferGetStaticPropsType } from 'next'
+import { InferGetStaticPropsType, NextPage } from 'next'
 import { Articles } from '~/components/articles'
 import { client } from '~/libs/client'
 import { Blogs } from '~/schema'
@@ -15,7 +15,7 @@ export const getStaticProps = async () => {
   }
 }
 
-const Home: React.FC<Props> = ({ blogs }) => {
+const Home: NextPage<Props> = ({ blogs }) => {
   return (
     <div>
       <Articles blogs={blogs.contents}></Articles>
