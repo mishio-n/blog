@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { client } from '~/libs/client'
 import { Blog, Blogs } from '~/schema'
 import NotFound from '../404'
+import styles from '~/styles/blog.module.scss'
 
 export const getStaticPaths = async () => {
   const data = await client.get<Blogs>({ endpoint: 'blog' })
@@ -42,14 +43,15 @@ const BlogId: NextPage<Props> = ({ blog, isPreview }) => {
     return <NotFound />
   }
   return (
-    <main>
-      {isPreview && <p>プレビューモードです</p>}
-      <h1>{blog.title}</h1>
-      <p>{blog.publishedAt}</p>
+    <main className={styles.main}>
+      {isPreview && <p className={styles.preview}>プレビューモードです</p>}
+      <h1 className={styles.title}>{blog.title}</h1>
+      <p className={styles.publishedAt}>{blog.publishedAt}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: `${blog.body}`
         }}
+        className={styles.blog}
       ></div>
     </main>
   )
