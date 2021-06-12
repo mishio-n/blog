@@ -1,5 +1,5 @@
 import { InferGetStaticPropsType, NextPage } from 'next'
-import { Head } from 'next/document'
+import Head from 'next/head'
 import { Articles } from '~/components/articles'
 import { client } from '~/libs/client'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
