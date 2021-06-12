@@ -33,6 +33,11 @@ class MyDocument extends NextDocument {
                           });`
             }}
           />
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/hybrid.min.css"
+          />
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
         </Head>
         <body>
           <Main />

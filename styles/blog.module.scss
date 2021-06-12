@@ -42,4 +42,8 @@
     list-style-type: decimal;
     list-style-position: inside;
   }
+
+  & > code {
+    border-radius: 5px;
+  }
 }

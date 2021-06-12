@@ -19,34 +19,35 @@ type ListMetaData = MetaData & {
   id: string
 }
 
+export type TextField = string
+export type TextArea = string
+export type RichEdit = string
+export type Image = {
+  url: string
+  width: number
+  height: number
+}
+
 export type Author = ListMetaData & {
-  name: string
-  profile: string
-  image: {
-    url: string
-    height: number
-    width: number
-  }
+  name: TextField
+  profile: TextArea
+  image: Image
 }
 
 export type Category = ListMetaData & {
-  name: string
+  name: TextField
 }
 
 export type Blog = ListMetaData & {
-  title: string
+  title: TextField
   categories: Category[]
   toc_visible: boolean
   /**
    * HTML contents
    */
-  body: string
-  description: string
-  ogimage: {
-    url: string
-    height: number
-    width: number
-  }
+  body: RichEdit
+  description: TextField
+  ogimage: Image
   writer: Author
   related_blogs: Blog[]
 }

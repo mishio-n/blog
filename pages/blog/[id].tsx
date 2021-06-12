@@ -1,8 +1,37 @@
+import highlight from 'highlight.js'
+import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { client } from '~/libs/client'
 import { Blog, Blogs } from '~/schema'
-import NotFound from '../404'
 import styles from '~/styles/blog.module.scss'
+import NotFound from '../404'
+
+const preProcessingDom = (rawHTML: string) => {
+  const dom = new JSDOM(rawHTML)
+  const toc: { id: string; name: string; text: string }[] = []
+
+  dom.window.document.querySelectorAll('h1, h2, h3').forEach((element) => {
+    toc.push({
+      id: element.id,
+      name: element.tagName,
+      text: element.textContent ?? ''
+    })
+  })
+
+  dom.window.document.querySelectorAll('pre code').forEach((element) => {
+    const res = highlight.highlightAuto(element.textContent ?? '')
+    element.innerHTML = res.value
+    element.classList.add('hljs')
+  })
+
+  dom.window.document.querySelectorAll('img').forEach((element) => {
+    element.classList.add('lazyload')
+    element.setAttribute('data-src', element.src)
+    element.src = ''
+  })
+
+  return { body: dom.window.document.body.innerHTML, toc }
+}
 
 export const getStaticPaths = async () => {
   const data = await client.get<Blogs>({ endpoint: 'blog' })
@@ -27,6 +56,10 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       draftKey
     }
   })
+
+  // シンタックスハイライト処理
+  const parsedDom = preProcessingDom(data.body)
+  data.body = parsedDom.body
 
   return {
     props: {
