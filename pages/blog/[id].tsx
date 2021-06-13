@@ -1,8 +1,8 @@
 import highlight from 'highlight.js'
 import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
-import { client } from '~/libs/client'
-import { Blog, Blogs } from '~/schema'
+import { client, microcmsClient } from '~/libs/client'
+import { Blog } from '~/schema'
 import styles from '~/styles/blog.module.scss'
 import NotFound from '../404'
 
@@ -34,7 +34,7 @@ const preProcessingDom = (rawHTML: string) => {
 }
 
 export const getStaticPaths = async () => {
-  const data = await client.get<Blogs>({ endpoint: 'blog' })
+  const data = await client.get('blog')
   const paths = data.contents.map((content) => `/blog/${content.id}`)
   return { paths, fallback: true }
 }
@@ -50,7 +50,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   // プレビューモード出ない場合は undefined が入ってくる
   const isPreview = !!context.preview
 
-  const data = await client.get<Blog>({
+  const data = await microcmsClient.get<Blog>({
     endpoint: `blog/${id}`,
     queries: {
       draftKey

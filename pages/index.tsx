@@ -1,14 +1,16 @@
 import { InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
 import { Articles } from '~/components/articles'
+import { Pagination } from '~/components/pagination'
 import { client } from '~/libs/client'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
-import { Blogs } from '~/schema'
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export const getStaticProps = async () => {
-  const data = await client.get<Blogs>({ endpoint: 'blog' })
+  const data = await client.get('blog', {
+    queries: { offset: 0, limit: 10 }
+  })
 
   return {
     props: {
@@ -28,6 +30,7 @@ const Home: NextPage<Props> = ({ blogs }) => {
       <div>
         <Articles blogs={blogs.contents}></Articles>
       </div>
+      <Pagination totalCount={blogs.totalCount} />
     </>
   )
 }

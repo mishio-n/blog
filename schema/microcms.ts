@@ -57,5 +57,5 @@ export type PopularBlogs = MetaData & {
 }
 
 export type Authors = ListSchema<Author>
-export type Categoy = ListSchema<Category>
+export type Categories = ListSchema<Category>
 export type Blogs = ListSchema<Blog>

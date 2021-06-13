@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { client } from '~/libs/client'
+import { microcmsClient } from '~/libs/client'
 import { Blog } from '~/schema'
 
 const isString = (queryValue: string | string[]): queryValue is string => {
@@ -17,7 +17,7 @@ const preview = async (request: NextApiRequest, response: NextApiResponse) => {
     return response.status(404).end()
   }
 
-  const { id } = await client.get<Blog>({
+  const { id } = await microcmsClient.get<Blog>({
     endpoint: `blog/${slug}`,
     queries: { fields: 'id', draftKey }
   })
