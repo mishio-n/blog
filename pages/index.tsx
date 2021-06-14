@@ -1,6 +1,7 @@
 import { InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
 import { Articles } from '~/components/articles'
+import Header from '~/components/header'
 import { Pagination } from '~/components/pagination'
 import { client } from '~/libs/client'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
