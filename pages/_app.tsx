@@ -1,14 +1,13 @@
 import type { AppProps } from 'next/app'
-import Header from '~/components/header'
 import { usePageView } from '~/hooks/use-pageview'
-import '~/styles/reset.css'
+import '~/styles/colors.scss'
 import '~/styles/globals.scss'
+import '~/styles/reset.css'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   usePageView()
   return (
     <>
-      <Header />
       <Component {...pageProps} />
     </>
   )

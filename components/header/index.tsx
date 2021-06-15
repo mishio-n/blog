@@ -18,7 +18,7 @@ const Header: React.FC = () => {
             />
           </a>
         </h1>
-        <div className={styles.menu}>
+        <div>
           <ul className={styles.lists}>
             {links.map((link) => (
               <li className={styles.list} key={link.text}>

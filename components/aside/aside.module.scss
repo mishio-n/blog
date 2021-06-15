@@ -1,0 +1,18 @@
+@media (min-width: 1160px) {
+  .aside {
+    width: 300px;
+  }
+}
+
+@media (min-width: 820px) and (max-width: 1160px) {
+  .aside {
+    margin-top: 60px;
+  }
+}
+
+@media (min-width: 1160px) {
+  .aside {
+    margin-top: 60px;
+    width: 100%;
+  }
+}
