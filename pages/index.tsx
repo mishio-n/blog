@@ -1,5 +1,6 @@
 import { InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
+import Footer from '~/components/footer'
 import Header from '~/components/header'
 import Layout from '~/components/layout'
 import { client } from '~/libs/client'
@@ -28,7 +29,8 @@ const Home: NextPage<Props> = ({ blogs }) => {
         <meta key={OG_TITLE} property={OG_TITLE} content={pagetitle} />
       </Head>
       <Header />
-      <Layout blogs={blogs} />
+      <Layout blogs={blogs} currentPageNumber={1} />
+      <Footer />
     </>
   )
 }

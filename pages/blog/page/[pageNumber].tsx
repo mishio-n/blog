@@ -1,10 +1,11 @@
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
-import { client } from '~/libs/client'
-import { range } from '~/libs/range'
-import { generateTitle, OG_TITLE } from '~/libs/meta'
 import Head from 'next/head'
+import Footer from '~/components/footer'
 import Header from '~/components/header'
 import Layout from '~/components/layout'
+import { client } from '~/libs/client'
+import { generateTitle, OG_TITLE } from '~/libs/meta'
+import { range } from '~/libs/range'
 
 const PER_PAGE = 10
 
@@ -30,14 +31,15 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   return {
     props: {
-      blogs: data
+      blogs: data,
+      pageNumber
     }
   }
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const BlogPage: NextPage<Props> = ({ blogs }) => {
+const BlogPage: NextPage<Props> = ({ blogs, pageNumber }) => {
   const pagetitle = generateTitle()
   return (
     <>
@@ -46,7 +48,8 @@ const BlogPage: NextPage<Props> = ({ blogs }) => {
         <meta key={OG_TITLE} property={OG_TITLE} content={pagetitle} />
       </Head>
       <Header />
-      <Layout blogs={blogs} />
+      <Layout blogs={blogs} currentPageNumber={+pageNumber} />
+      <Footer />
     </>
   )
 }

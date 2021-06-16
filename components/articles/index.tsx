@@ -11,7 +11,7 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id}>
-            <Link href={`blog/${blog.id}`}>
+            <Link href={`/blog/${blog.id}`}>
               <a>{blog.title}</a>
             </Link>
           </li>
