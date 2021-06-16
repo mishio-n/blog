@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import Link from 'next/link'
 import { range } from '~/libs/range'
 import styles from './pager.module.scss'
@@ -13,7 +14,10 @@ export const Pager: React.FC<Props> = ({ totalCount }) => {
   return (
     <ul className={styles.pager}>
       {pages.map((pageNumber, index) => (
-        <li key={`page-${index}`} className={styles.page} data-is-active={true}>
+        <li
+          key={`page-${index}`}
+          className={classNames(styles.page, { [styles.active]: true })}
+        >
           <Link href={`/blog/page/${[pageNumber]}`}>
             <a>{pageNumber}</a>
           </Link>

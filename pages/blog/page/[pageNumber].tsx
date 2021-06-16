@@ -1,8 +1,6 @@
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
-import Link from 'next/link'
 import { client } from '~/libs/client'
 import { range } from '~/libs/range'
-import { Pager } from '~/components/pager'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
 import Head from 'next/head'
 import Header from '~/components/header'

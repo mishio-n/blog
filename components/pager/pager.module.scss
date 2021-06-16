@@ -13,7 +13,7 @@
     background-color: #e5eff9;
     border-radius: 5px;
     margin: 10px;
-    &[data-is-active='true'] {
+    &.active {
       background-color: #3067af;
       a {
         color: #fff;
@@ -44,7 +44,7 @@
     background-color: #e5eff9;
     border-radius: 5px;
     margin: 10px;
-    &[data-is-active='true'] {
+    &.active {
       background-color: #3067af;
       a {
         color: #fff;
@@ -75,7 +75,7 @@
     background-color: #e5eff9;
     border-radius: 5px;
     margin: 6px;
-    &[data-is-active='true'] {
+    &.active {
       background-color: #3067af;
       a {
         color: #fff;
