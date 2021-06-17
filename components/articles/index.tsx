@@ -20,8 +20,8 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
                   alt="Thumbnail Image"
                   className={styles.opimage}
                   loading="lazy"
-                  width={160}
-                  height={160}
+                  width={100}
+                  height={100}
                   blurDataURL={blog.ogimage.url}
                   placeholder="blur"
                 />

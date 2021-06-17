@@ -24,8 +24,13 @@
     margin-right: 30px;
 
     a {
-      display: block;
+      display: flex;
       height: 28px;
+      align-items: center;
+
+      span {
+        padding-left: 0.5rem;
+      }
     }
   }
 
@@ -90,6 +95,16 @@
   .logo {
     display: inline-block;
     height: 28px;
+
+    a {
+      display: flex;
+      height: 28px;
+      align-items: center;
+
+      span {
+        padding-left: 0.5rem;
+      }
+    }
   }
 
   .logoImg {

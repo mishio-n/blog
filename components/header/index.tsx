@@ -1,6 +1,7 @@
 import styles from './header.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
+import icon from '~/public/icon-192x192.png'
 
 const links = [
   { href: '/about', text: 'プロフィール' },
@@ -15,12 +16,13 @@ const Header: React.FC = () => {
           <Link href="/">
             <a>
               <Image
-                src="/icon-192x192.png"
+                src={icon}
                 className={styles.logoImg}
                 alt="logo"
-                width={40}
-                height={40}
+                width={28}
+                height={28}
               />
+              <span>mihioブログ</span>
             </a>
           </Link>
         </h1>
