@@ -41,6 +41,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   // previewData.draftKey が型エラーとなるため、guard関数で回避
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hasDraftKey = (item: any): item is { draftKey: string } =>
     !!(item?.draftKey && typeof item.draftKey === 'string')
 

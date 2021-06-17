@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Blog } from '~/schema'
 import styles from './articles.module.scss'
@@ -15,17 +15,16 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
           <li key={blog.id}>
             <Link href={`/blog/${blog.id}`}>
               <a>
-                <picture>
-                  <source
-                    type="image/webp"
-                    data-srcset={`${blog.ogimage.url}?w=670&fm=webp`}
-                  />
-                  <img
-                    data-src={`${blog.ogimage.url}?w=670`}
-                    alt="img"
-                    className={classNames('lazyload', styles.opimage)}
-                  />
-                </picture>
+                <Image
+                  src={blog.ogimage.url}
+                  alt="Thumbnail Image"
+                  className={styles.opimage}
+                  loading="lazy"
+                  width={160}
+                  height={160}
+                  blurDataURL={blog.ogimage.url}
+                  placeholder="blur"
+                />
                 {blog.title}
               </a>
             </Link>

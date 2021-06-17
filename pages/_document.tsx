@@ -37,18 +37,15 @@ class MyDocument extends NextDocument {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/hybrid.min.css"
           />
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+          <script
+            async
+            src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"
+          ></script>
         </Head>
         <body>
           <Main />
           <NextScript />
         </body>
-        <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"
-          integrity="sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ=="
-          crossOrigin="anonymous"
-          async
-        ></script>
       </Html>
     )
   }

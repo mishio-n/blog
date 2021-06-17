@@ -1,4 +1,6 @@
 import styles from './header.module.scss'
+import Link from 'next/link'
+import Image from 'next/image'
 
 const links = [
   { href: '/about', text: 'プロフィール' },
@@ -10,13 +12,17 @@ const Header: React.FC = () => {
     <>
       <header className={styles.header}>
         <h1 className={styles.logo}>
-          <a href="/">
-            <img
-              className={styles.logoImg}
-              src="/icon-192x192.png"
-              alt="logo"
-            />
-          </a>
+          <Link href="/">
+            <a>
+              <Image
+                src="/icon-192x192.png"
+                className={styles.logoImg}
+                alt="logo"
+                width={40}
+                height={40}
+              />
+            </a>
+          </Link>
         </h1>
         <div>
           <ul className={styles.lists}>
