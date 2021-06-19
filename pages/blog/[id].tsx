@@ -3,8 +3,8 @@ import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import { client, microcmsClient } from '~/libs/client'
 import { Blog } from '~/schema'
-import styles from '~/styles/blog.module.scss'
 import NotFound from '../404'
+import styles from '~/styles/blog.module.scss'
 
 const preProcessingDom = (rawHTML: string) => {
   const dom = new JSDOM(rawHTML)
@@ -77,10 +77,12 @@ const BlogId: NextPage<Props> = ({ blog, isPreview }) => {
     return <NotFound />
   }
   return (
-    <main className={styles.main}>
-      {isPreview && <p className={styles.preview}>プレビューモードです</p>}
-      <h1 className={styles.title}>{blog.title}</h1>
-      <p className={styles.publishedAt}>{blog.publishedAt}</p>
+    <main className="w-blog">
+      {isPreview && (
+        <p className="text-sm text-gray-700"> プレビューモードです</p>
+      )}
+      <h1 className="mb-5">{blog.title}</h1>
+      <p className="mb-10">{blog.publishedAt}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: `${blog.body}`

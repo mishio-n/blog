@@ -1,8 +1,6 @@
-import styles from './aside.module.scss'
-
 const Aside: React.FC = () => {
   return (
-    <aside className={styles.aside}>
+    <aside className="lg:w-80 md:w-80 md:mt16 sm:w-auto sm:mt-16">
       <p>著者紹介</p>
       <p>検索</p>
       <p>カテゴリー一覧</p>

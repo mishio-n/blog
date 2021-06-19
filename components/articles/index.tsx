@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Blog } from '~/schema'
-import styles from './articles.module.scss'
 
 type Props = {
   blogs: Blog[]
@@ -18,7 +17,7 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
                 <Image
                   src={blog.ogimage.url}
                   alt="Thumbnail Image"
-                  className={styles.opimage}
+                  className={'rounded-5 w-80 h-44  sm:w-full sm:h-auto'}
                   loading="lazy"
                   width={100}
                   height={100}
