@@ -1,9 +1,10 @@
 import highlight from 'highlight.js'
 import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
+import { Layout } from '~/components/layout'
 import { client, microcmsClient } from '~/libs/client'
+import NotFound from '~/pages/404'
 import { Blog } from '~/schema'
-import NotFound from '../404'
 import styles from '~/styles/blog.module.scss'
 
 const preProcessingDom = (rawHTML: string) => {
@@ -77,19 +78,21 @@ const BlogId: NextPage<Props> = ({ blog, isPreview }) => {
     return <NotFound />
   }
   return (
-    <main className="w-blog">
-      {isPreview && (
-        <p className="text-sm text-gray-700"> プレビューモードです</p>
-      )}
-      <h1 className="mb-5">{blog.title}</h1>
-      <p className="mb-10">{blog.publishedAt}</p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `${blog.body}`
-        }}
-        className={styles.blog}
-      ></div>
-    </main>
+    <Layout>
+      <main className="w-full">
+        {isPreview && (
+          <p className="text-sm text-gray-700"> プレビューモードです</p>
+        )}
+        <h1 className="mb-5">{blog.title}</h1>
+        <p className="mb-10">{blog.publishedAt}</p>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `${blog.body}`
+          }}
+          className={styles.blog}
+        ></div>
+      </main>
+    </Layout>
   )
 }
 

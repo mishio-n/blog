@@ -1,6 +1,5 @@
 import type { AppProps } from 'next/app'
 import { usePageView } from '~/hooks/use-pageview'
-import '~/styles/colors.scss'
 import '~/styles/globals.css'
 import '~/styles/reset.css'
 

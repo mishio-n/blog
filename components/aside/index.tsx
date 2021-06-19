@@ -1,4 +1,4 @@
-const Aside: React.FC = () => {
+export const Aside: React.FC = () => {
   return (
     <aside className="lg:w-80 md:w-80 md:mt16 sm:w-auto sm:mt-16">
       <p>著者紹介</p>
@@ -8,5 +8,3 @@ const Aside: React.FC = () => {
     </aside>
   )
 }
-
-export default Aside

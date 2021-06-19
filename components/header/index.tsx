@@ -7,10 +7,10 @@ const links = [
   { href: '/', text: '記事一覧' }
 ]
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <>
-      <header className="top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-between px-10 py-3 bg-white border-b border-gray-300 border-solid >800:flex-wrap">
+      <header className="sticky top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-between px-10 py-3 bg-white border-b border-gray-300 border-solid >800:flex-wrap">
         <h1 className="px-0 py-2 mr-8 sm:inline-block sm:h-7">
           <Link href="/">
             <a className="flex items-center h-7">
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
                 width={28}
                 height={28}
               />
-              <span className="pl-2">mihioブログ</span>
+              <span className="pl-2">mishioブログ</span>
             </a>
           </Link>
         </h1>
@@ -37,9 +37,7 @@ const Header: React.FC = () => {
           </ul>
         </div>
       </header>
-      <div className=">800:h-20 >800:mb-10 <800:h-16"></div>
+      <div className=">800:h-8 <800:h-4"></div>
     </>
   )
 }
-
-export default Header

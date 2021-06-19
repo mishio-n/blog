@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { Layout } from '~/components/layout'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
 
 const About: React.FC = () => {
@@ -9,10 +10,12 @@ const About: React.FC = () => {
         <title>{pagetitle}</title>
         <meta key={OG_TITLE} property={OG_TITLE} content={pagetitle} />
       </Head>
-      <div>
-        <h1>Mishio</h1>
-        <h2>エンジニア</h2>
-      </div>
+      <Layout>
+        <div>
+          <h1>Mishio</h1>
+          <h2>エンジニア</h2>
+        </div>
+      </Layout>
     </>
   )
 }

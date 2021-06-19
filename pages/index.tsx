@@ -1,8 +1,8 @@
 import { InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
-import Footer from '~/components/footer'
-import Header from '~/components/header'
-import Layout from '~/components/layout'
+import { Articles } from '~/components/articles'
+import { Layout } from '~/components/layout'
+import { Pager } from '~/components/pager'
 import { client } from '~/libs/client'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
 
@@ -28,9 +28,10 @@ const Home: NextPage<Props> = ({ blogs }) => {
         <title>{pagetitle}</title>
         <meta key={OG_TITLE} property={OG_TITLE} content={pagetitle} />
       </Head>
-      <Header />
-      <Layout blogs={blogs} currentPageNumber={1} />
-      <Footer />
+      <Layout>
+        <Articles blogs={blogs.contents} />
+        <Pager totalCount={blogs.totalCount} currentPageNumber={1} />
+      </Layout>
     </>
   )
 }
