@@ -21,7 +21,11 @@ module.exports = {
         md: '820px',
         lg: '1024px',
         xl: '1280px',
-        blog: '960px'
+        blog: '960px',
+        thumbnail: '335px'
+      },
+      height: {
+        thumbnail: '176px'
       }
     }
   },
