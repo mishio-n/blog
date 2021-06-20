@@ -1,5 +1,6 @@
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  // 指定が効かないので、build時に NODE_ENV=production でビルドする
+  purge: [],
   darkMode: 'media',
   theme: {
     screens: {
