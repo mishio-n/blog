@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>clock</title>
+    <g id="clock" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="#6B7280" stroke-width="3" cx="24" cy="24" r="22.5"></circle>
+        <line x1="23" y1="9" x2="23" y2="22" id="Line" stroke="#6B7280" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="23" y1="24" x2="34" y2="34" id="Line-2" stroke="#6B7280" stroke-width="2" stroke-linecap="square"></line>
+        <circle id="Oval" stroke="#6B7280" stroke-width="2" fill="#D8D8D8" cx="23.5" cy="23.5" r="1.5"></circle>
+    </g>
+</svg>
