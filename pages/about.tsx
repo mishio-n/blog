@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Layout } from '~/components/layout'
+import { Layout } from '~/components/Layout'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
 
 const About: React.FC = () => {

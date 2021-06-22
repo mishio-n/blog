@@ -1,7 +1,7 @@
 import highlight from 'highlight.js'
 import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
-import { Layout } from '~/components/layout'
+import { Layout } from '~/components/Layout'
 import { client, microcmsClient } from '~/libs/client'
 import NotFound from '~/pages/404'
 import { Blog } from '~/schema'
