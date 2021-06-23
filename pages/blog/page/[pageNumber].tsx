@@ -25,13 +25,16 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     throw Error('param error')
   }
 
-  const data = await client.get('blog', {
+  const blogs = await client.get('blog', {
     queries: { offset: (+pageNumber - 1) * PER_PAGE, limit: PER_PAGE }
   })
 
+  const categories = await client.get('categories')
+
   return {
     props: {
-      blogs: data,
+      blogs,
+      categories,
       pageNumber
     }
   }
@@ -39,7 +42,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const BlogPage: NextPage<Props> = ({ blogs, pageNumber }) => {
+const BlogPage: NextPage<Props> = ({ blogs, categories, pageNumber }) => {
   const pagetitle = generateTitle()
   return (
     <>
@@ -47,7 +50,7 @@ const BlogPage: NextPage<Props> = ({ blogs, pageNumber }) => {
         <title>{pagetitle}</title>
         <meta key={OG_TITLE} property={OG_TITLE} content={pagetitle} />
       </Head>
-      <Layout>
+      <Layout categories={categories.contents}>
         <Articles blogs={blogs.contents} />
         <Pager totalCount={blogs.totalCount} currentPageNumber={+pageNumber} />
       </Layout>

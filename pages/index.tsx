@@ -9,18 +9,21 @@ import { generateTitle, OG_TITLE } from '~/libs/meta'
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export const getStaticProps = async () => {
-  const data = await client.get('blog', {
+  const blogs = await client.get('blog', {
     queries: { offset: 0, limit: 10 }
   })
 
+  const categories = await client.get('categories')
+
   return {
     props: {
-      blogs: data
+      blogs,
+      categories
     }
   }
 }
 
-const Home: NextPage<Props> = ({ blogs }) => {
+const Home: NextPage<Props> = ({ blogs, categories }) => {
   const pagetitle = generateTitle()
   return (
     <>
@@ -28,7 +31,7 @@ const Home: NextPage<Props> = ({ blogs }) => {
         <title>{pagetitle}</title>
         <meta key={OG_TITLE} property={OG_TITLE} content={pagetitle} />
       </Head>
-      <Layout>
+      <Layout categories={categories.contents}>
         <Articles blogs={blogs.contents} />
         <Pager totalCount={blogs.totalCount} currentPageNumber={1} />
       </Layout>

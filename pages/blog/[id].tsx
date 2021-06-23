@@ -52,20 +52,23 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   // プレビューモード出ない場合は undefined が入ってくる
   const isPreview = !!context.preview
 
-  const data = await microcmsClient.get<Blog>({
+  const blog = await microcmsClient.get<Blog>({
     endpoint: `blog/${id}`,
     queries: {
       draftKey
     }
   })
 
+  const categories = await client.get('categories')
+
   // シンタックスハイライト処理
-  const parsedDom = preProcessingDom(data.body)
-  data.body = parsedDom.body
+  const parsedDom = preProcessingDom(blog.body)
+  blog.body = parsedDom.body
 
   return {
     props: {
-      blog: data,
+      blog,
+      categories,
       isPreview
     }
   }
@@ -73,12 +76,12 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const BlogId: NextPage<Props> = ({ blog, isPreview }) => {
+const BlogId: NextPage<Props> = ({ blog, categories, isPreview }) => {
   if (!blog) {
     return <NotFound />
   }
   return (
-    <Layout>
+    <Layout categories={categories.contents}>
       <main className="w-full">
         {isPreview && (
           <p className="text-sm text-gray-700"> プレビューモードです</p>

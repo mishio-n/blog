@@ -8,11 +8,11 @@ export const microcmsClient = createClient({
 })
 
 type Options = Omit<GetRequest, 'endpoint'>
-type Endpoints = 'author' | 'blog' | 'category'
+type Endpoints = 'author' | 'blog' | 'categories'
 type getMicroCMSContents = {
   get(endpoint: 'author', options?: Options): Promise<Authors>
   get(endpoint: 'blog', options?: Options): Promise<Blogs>
-  get(endpoint: 'category', options?: Options): Promise<Categories>
+  get(endpoint: 'categories', options?: Options): Promise<Categories>
 }
 
 export const client: getMicroCMSContents = {
@@ -23,7 +23,7 @@ export const client: getMicroCMSContents = {
     if (endpoint === 'blog') {
       return microcmsClient.get<Blogs>({ endpoint, ...options })
     }
-    if (endpoint === 'category') {
+    if (endpoint === 'categories') {
       return microcmsClient.get<Categories>({ endpoint, ...options })
     }
   }
