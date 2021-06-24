@@ -15,7 +15,7 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
       <ul>
         {blogs.map((blog) => (
           <li key={blog.id} className="px-0 py-5">
-            <Link href={`/blog/${blog.id}`}>
+            <Link href={`/${blog.id}`}>
               <a className="flex justify-between <800:flex-col">
                 <img
                   src={blog.ogimage.url}

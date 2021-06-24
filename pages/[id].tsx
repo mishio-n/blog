@@ -36,7 +36,7 @@ const preProcessingDom = (rawHTML: string) => {
 
 export const getStaticPaths = async () => {
   const data = await client.get('blog')
-  const paths = data.contents.map((content) => `/blog/${content.id}`)
+  const paths = data.contents.map((content) => `/${content.id}`)
   return { paths, fallback: true }
 }
 

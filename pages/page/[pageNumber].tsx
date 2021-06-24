@@ -12,7 +12,7 @@ const PER_PAGE = 10
 export const getStaticPaths = async () => {
   const data = await client.get('blog')
   const paths = range(1, Math.ceil(data.totalCount / PER_PAGE)).map(
-    (pageNumber) => `/blog/page/${pageNumber}`
+    (pageNumber) => `/page/${pageNumber}`
   )
 
   return { paths, fallback: false }

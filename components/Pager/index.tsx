@@ -19,7 +19,7 @@ export const Pager: React.FC<Props> = ({ totalCount, currentPageNumber }) => {
             currentPageNumber === pageNumber ? 'bg-blue-500' : ''
           }`}
         >
-          <Link href={`/blog/page/${[pageNumber]}`}>
+          <Link href={`/page/${[pageNumber]}`}>
             <a
               className={`flex justify-center items-center h-full ${
                 currentPageNumber === pageNumber ? 'text-white' : ''

@@ -30,7 +30,7 @@ const preview = async (request: NextApiRequest, response: NextApiResponse) => {
     id,
     draftKey
   })
-  response.writeHead(307, { Location: `/blog/${id}` })
+  response.writeHead(307, { Location: `/${id}` })
   response.end('Preview mode enabled')
   return
 }
