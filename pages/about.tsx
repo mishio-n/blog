@@ -8,7 +8,6 @@ type Props = InferGetStaticPropsType<typeof getStaticProps>
 
 export const getStaticProps = async () => {
   const categories = await client.get('categories')
-  console.log(categories)
 
   return {
     props: {

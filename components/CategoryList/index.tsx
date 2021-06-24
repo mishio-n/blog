@@ -17,7 +17,7 @@ export const CategoryList: React.FC<Props> = ({ categories }) => {
             key={category.id}
             className="border-b border-gray-300 border-solid last:border-none"
           >
-            <Link href={`/category/${category.id}`}>
+            <Link href={`/category/${category.id}/page/${1}`}>
               <a className="block p-2.5 ">{category.name}</a>
             </Link>
           </li>
