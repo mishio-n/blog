@@ -1,11 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import icon from '~/public/icon-192x192.png'
+import { SearchBar } from '~/components/SearchBar'
 
-const links = [
-  { href: '/about', text: 'プロフィール' },
-  { href: '/', text: '記事一覧' }
-]
+const links = [{ href: '/about', text: 'プロフィール' }]
 
 export const Header: React.FC = () => {
   return (
@@ -25,7 +23,8 @@ export const Header: React.FC = () => {
             </a>
           </Link>
         </h1>
-        <div>
+        <div className="flex">
+          <SearchBar />
           <ul className=">800:flex >800:items-center <800:py-2 <800:px-0 first:pt-0">
             {links.map((link) => (
               <li className="px-4 py-0 whitespace-nowrap" key={link.text}>
