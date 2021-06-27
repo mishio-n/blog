@@ -8,7 +8,7 @@ type Props = {
 export const CategoryList: React.FC<Props> = ({ categories }) => {
   return (
     <div className="px-0 py-10">
-      <h1 className="text-xl font-bold bg-gray-300 py-1.5 px-2.5 mb-2.5 rounded-5">
+      <h1 className="text-xl font-bold text-gray-700 bg-gray-100 py-1.5 px-2.5 mb-2.5 rounded-5">
         カテゴリー
       </h1>
       <ul>
@@ -18,7 +18,7 @@ export const CategoryList: React.FC<Props> = ({ categories }) => {
             className="border-b border-gray-300 border-solid last:border-none"
           >
             <Link href={`/category/${category.id}/page/${1}`}>
-              <a className="block p-2.5 ">{category.name}</a>
+              <a className="block text-gray-500 p-2.5">{category.name}</a>
             </Link>
           </li>
         ))}

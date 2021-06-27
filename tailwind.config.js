@@ -15,7 +15,8 @@ module.exports = {
     },
     extend: {
       borderRadius: {
-        5: '5px'
+        5: '5px',
+        harf: '50%'
       },
       width: {
         md: '820px',
