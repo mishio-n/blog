@@ -1,11 +1,19 @@
 import highlight from 'highlight.js'
 import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
+import Head from 'next/head'
+import { Content } from '~/components/Content'
 import { Layout } from '~/components/Layout'
 import { client, microcmsClient } from '~/libs/client'
+import {
+  DESCRIPTION,
+  generateTitle,
+  OG_DESCRIPTION,
+  OG_IMAGE,
+  OG_TITLE
+} from '~/libs/meta'
 import NotFound from '~/pages/404'
 import { Blog } from '~/schema'
-import styles from '~/styles/blog.module.scss'
 
 const preProcessingDom = (rawHTML: string) => {
   const dom = new JSDOM(rawHTML)
@@ -23,12 +31,6 @@ const preProcessingDom = (rawHTML: string) => {
     const res = highlight.highlightAuto(element.textContent ?? '')
     element.innerHTML = res.value
     element.classList.add('hljs')
-  })
-
-  dom.window.document.querySelectorAll('img').forEach((element) => {
-    element.classList.add('lazyload')
-    element.setAttribute('data-src', element.src)
-    element.src = ''
   })
 
   return { body: dom.window.document.body.innerHTML, toc }
@@ -61,7 +63,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   const categories = await client.get('categories')
 
-  // シンタックスハイライト処理
+  // シンタックスハイライト, 目次作成処理
   const parsedDom = preProcessingDom(blog.body)
   blog.body = parsedDom.body
 
@@ -69,33 +71,39 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     props: {
       blog,
       categories,
-      isPreview
+      isPreview,
+      toc: parsedDom.toc
     }
   }
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const BlogId: NextPage<Props> = ({ blog, categories, isPreview }) => {
+const BlogId: NextPage<Props> = ({ blog, categories, isPreview, toc }) => {
   if (!blog) {
     return <NotFound />
   }
+
+  const title = generateTitle(blog.title)
+  const description = blog.description
+
   return (
-    <Layout categories={categories.contents}>
-      <main className="w-full">
-        {isPreview && (
-          <p className="text-sm text-gray-700"> プレビューモードです</p>
-        )}
-        <h1 className="mb-5">{blog.title}</h1>
-        <p className="mb-10">{blog.publishedAt}</p>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `${blog.body}`
-          }}
-          className={styles.blog}
-        ></div>
-      </main>
-    </Layout>
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta key={OG_TITLE} property={OG_TITLE} content={title} />
+        <meta key={DESCRIPTION} name={DESCRIPTION} content={description} />
+        <meta
+          key={OG_DESCRIPTION}
+          property={OG_DESCRIPTION}
+          content={description}
+        />
+        <meta key={OG_IMAGE} property={OG_IMAGE} content={blog.ogimage.url} />
+      </Head>
+      <Layout categories={categories.contents}>
+        <Content blog={blog} toc={toc} isPreview={isPreview} />
+      </Layout>
+    </>
   )
 }
 

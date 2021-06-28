@@ -8,7 +8,10 @@ const links = [{ href: '/about', text: 'プロフィール' }]
 export const Header: React.FC = () => {
   return (
     <>
-      <header className="sticky top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-between px-10 py-3 bg-white border-b border-gray-300 border-solid >800:flex-wrap">
+      <header
+        id="header"
+        className="sticky top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-between px-10 py-3 bg-white border-b border-gray-300 border-solid >800:flex-wrap"
+      >
         <h1 className="px-0 py-2 mr-8 sm:inline-block sm:h-7">
           <Link href="/">
             <a className="flex items-center h-7">
