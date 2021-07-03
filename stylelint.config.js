@@ -8,6 +8,6 @@ module.exports = {
       }
     ],
     'block-no-empty': null,
-    'unit-whitelist': ['px', 'em', 'rem', 's']
+    'unit-whitelist': ['px', 'em', 'rem', 's', '%']
   }
 }

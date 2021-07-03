@@ -1,7 +1,5 @@
 .image {
   border-radius: 5px;
-  // position: relative;
-  // overflow: hidden;
 }
 
 .blog {
@@ -55,5 +53,30 @@
 
   & > code {
     border-radius: 5px;
+  }
+
+  a {
+    color: #2a96c9;
+    position: relative;
+    display: inline-block;
+  }
+  a:visited {
+    color: #2a96c9;
+  }
+
+  a::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: #2a96c9;
+    transition: 0.6s;
+    transform: translateX(0%);
+  }
+
+  a:hover::after {
+    width: 100%;
   }
 }
