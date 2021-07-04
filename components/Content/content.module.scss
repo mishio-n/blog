@@ -7,13 +7,18 @@
     font-size: 30px;
     font-weight: bold;
     margin: 40px 0 20px;
-    background-color: #eee;
-    padding: 10px 20px;
     border-radius: 5px;
   }
 
   & > h2 {
     font-size: 24px;
+    font-weight: bold;
+    margin: 40px 0 16px;
+    border-bottom: 2px dotted orange;
+  }
+
+  & > h3 {
+    font-size: 20px;
     font-weight: bold;
     margin: 40px 0 16px;
     border-bottom: 1px solid #ddd;
@@ -42,11 +47,13 @@
   }
 
   li {
-    padding: 0.3rem 0;
+    padding: 0.5rem 0;
+    margin-left: 1rem;
 
     &:before {
       color: #f3a7a9;
       content: '●';
+      font-size: small;
       padding-right: 0.5rem;
     }
   }

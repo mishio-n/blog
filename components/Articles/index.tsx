@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import dayjs from 'dayjs'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Blog } from '~/schema'
+import { CategoryItem } from '~/components/CategoryItem'
 import clockIcon from '~/public/clock.svg'
-import dayjs from 'dayjs'
+import { Blog } from '~/schema'
 
 type Props = {
   blogs: Blog[]
@@ -29,14 +30,11 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
                   <dd className="mt-5">
                     <div>
                       {blog.categories.map((category, i) => (
-                        <span
+                        <CategoryItem
                           key={category.name}
-                          className={`inline-block px-2 mx-0 text-sm text-purple-500 border border-purple-500 border-solid rounded py-0.5 whitespace-nowrap mt-2.5 mb-0.5 ${
-                            i !== 0 ? 'ml-2' : ''
-                          }`}
-                        >
-                          {category.name}
-                        </span>
+                          requiredMarginLeft={i !== 0}
+                          category={category}
+                        />
                       ))}
                       <div className="flex-col px-0 pb-10 mt-2 pt-2.5">
                         <div className="flex items-center mr-5 text-gray-500 whitespace-nowrap">
