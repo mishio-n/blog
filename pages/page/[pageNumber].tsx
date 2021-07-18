@@ -4,16 +4,13 @@ import { Articles } from '~/components/Articles'
 import { Layout } from '~/components/Layout'
 import { Pager } from '~/components/Pager'
 import { client } from '~/libs/client'
+import { getAllPagePaths } from '~/libs/get-paths'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
-import { range } from '~/libs/range'
 
 const PER_PAGE = 10
 
 export const getStaticPaths = async () => {
-  const data = await client.get('blog')
-  const paths = range(1, Math.ceil(data.totalCount / PER_PAGE)).map(
-    (pageNumber) => `/page/${pageNumber}`
-  )
+  const paths = await getAllPagePaths()
 
   return { paths, fallback: false }
 }

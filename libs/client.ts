@@ -16,6 +16,7 @@ type getMicroCMSContents = {
 }
 
 export const client: getMicroCMSContents = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get(endpoint: Endpoints, options?: Options): any {
     if (endpoint === 'authors') {
       return microcmsClient.get<Authors>({ endpoint, ...options })

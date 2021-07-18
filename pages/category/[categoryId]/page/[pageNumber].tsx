@@ -4,28 +4,15 @@ import { Articles } from '~/components/Articles'
 import { Layout } from '~/components/Layout'
 import { Pager } from '~/components/Pager'
 import { client } from '~/libs/client'
+import { getAllCategoryPaths } from '~/libs/get-paths'
 import { generateTitle, OG_TITLE } from '~/libs/meta'
-import { range } from '~/libs/range'
 
 const PER_PAGE = 10
 
 export const getStaticPaths = async () => {
-  const categories = await client.get('categories')
-  const paths = await Promise.all(
-    categories.contents.map((category) =>
-      client
-        .get('blog', {
-          queries: { filters: `categories[contains]${category.id}`, limit: 1 }
-        })
-        .then(({ totalCount }) =>
-          range(1, Math.ceil(totalCount / PER_PAGE)).map(
-            (pageNumber) => `/category/${category.id}/page/${pageNumber}`
-          )
-        )
-    )
-  )
+  const paths = await getAllCategoryPaths()
 
-  return { paths: paths.flat(), fallback: false }
+  return { paths, fallback: false }
 }
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {

@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { Content } from '~/components/Content'
 import { Layout } from '~/components/Layout'
 import { client, microcmsClient } from '~/libs/client'
+import { getAllBlogPaths } from '~/libs/get-paths'
 import {
   DESCRIPTION,
   generateTitle,
@@ -37,8 +38,7 @@ const preProcessingDom = (rawHTML: string) => {
 }
 
 export const getStaticPaths = async () => {
-  const data = await client.get('blog')
-  const paths = data.contents.map((content) => `/${content.id}`)
+  const paths = await getAllBlogPaths()
   return { paths, fallback: true }
 }
 
