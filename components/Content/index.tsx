@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 import Image from 'next/image'
+import { useWindowSize } from 'react-use'
 import clockIcon from '~/public/clock.svg'
 import { Blog } from '~/schema'
 import { CategoryItem } from '../CategoryItem'
@@ -13,14 +14,20 @@ type Props = {
 }
 
 export const Content: React.FC<Props> = ({ blog, toc, isPreview }) => {
+  const { width } = useWindowSize()
+
   return (
     <>
       <div className="mb-5">
         <Image
           src={`${blog.ogimage.url}`}
           alt=""
-          width={820}
-          height={431}
+          width={
+            width > 1160 ? 820 : width > 820 ? 740 : width > 768 ? 728 : 375
+          }
+          height={
+            width > 1160 ? 461 : width > 820 ? 416 : width > 768 ? 410 : 211
+          }
           layout="fixed"
           placeholder="blur"
           blurDataURL={blog.ogimage.url}
