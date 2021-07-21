@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "NODE_ENV=production next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-tailwind": "^0.2.1",
     "globby": "^11.0.4",
+    "next-sitemap": "^1.6.140",
     "prettier": "^2.3.1",
     "stylelint-config-recommended": "^5.0.0",
     "typescript": "^4.3.2"
