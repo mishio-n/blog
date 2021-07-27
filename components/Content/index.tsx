@@ -23,10 +23,10 @@ export const Content: React.FC<Props> = ({ blog, toc, isPreview }) => {
           src={`${blog.ogimage.url}`}
           alt=""
           width={
-            width > 1160 ? 820 : width > 820 ? 740 : width > 768 ? 728 : 375
+            width > 1160 ? 820 : width > 820 ? 740 : width > 768 ? 728 : 320
           }
           height={
-            width > 1160 ? 461 : width > 820 ? 416 : width > 768 ? 410 : 211
+            width > 1160 ? 461 : width > 820 ? 416 : width > 768 ? 410 : 180
           }
           layout="fixed"
           placeholder="blur"
