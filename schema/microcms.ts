@@ -28,6 +28,9 @@ export type Image = {
   height: number
 }
 
+export type Markdown = TextArea
+export type HTML = TextArea
+
 export type Author = ListMetaData & {
   name: TextField
   profile: TextArea
@@ -38,6 +41,13 @@ export type Category = ListMetaData & {
   name: TextField
 }
 
+export type BlogContent = {
+  fieldId: 'richEditor' | 'html' | 'markdown'
+  content: RichEdit | HTML | Markdown
+}
+
+export type BlogContents = BlogContent[]
+
 export type Blog = ListMetaData & {
   title: TextField
   categories: Category[]
@@ -45,7 +55,7 @@ export type Blog = ListMetaData & {
   /**
    * HTML contents
    */
-  body: RichEdit
+  body: BlogContents
   description: TextField
   ogimage: Image
   writer: Author

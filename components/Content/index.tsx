@@ -9,11 +9,17 @@ import styles from './content.module.scss'
 
 type Props = {
   blog: Blog
+  contents: string
   toc: { id: string; name: string; text: string }[]
   isPreview: boolean
 }
 
-export const Content: React.FC<Props> = ({ blog, toc, isPreview }) => {
+export const Content: React.FC<Props> = ({
+  blog,
+  contents,
+  toc,
+  isPreview
+}) => {
   const { width } = useWindowSize()
 
   return (
@@ -69,7 +75,7 @@ export const Content: React.FC<Props> = ({ blog, toc, isPreview }) => {
         {blog.toc_visible && <Toc toc={toc} />}
         <div
           dangerouslySetInnerHTML={{
-            __html: `${blog.body}`
+            __html: contents
           }}
           className={styles.blog}
         ></div>

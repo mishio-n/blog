@@ -60,7 +60,14 @@
     }
   }
 
-  & > code {
+  p > code {
+    border-radius: 5px;
+    padding: 1em;
+    background-color: #1d1f21;
+    color: #c5c8c6;
+  }
+
+  pre > code {
     border-radius: 5px;
   }
 
@@ -97,5 +104,30 @@
     padding-right: 0;
     margin: 1.5em 0;
     line-height: 1.5em;
+  }
+
+  table {
+    margin: 1.2rem auto;
+    width: auto;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    line-height: 1.5;
+    word-break: normal;
+    display: block;
+    overflow: auto;
+    border-spacing: 2px;
+    border-color: gray;
+  }
+
+  th {
+    font-weight: 700;
+    background-color: #edf2f7 !important;
+  }
+
+  td,
+  th {
+    padding: 0.5rem;
+    border: 1px solid #cfdce6;
+    background-color: white;
   }
 }

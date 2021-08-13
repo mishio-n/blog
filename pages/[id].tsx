@@ -2,6 +2,11 @@ import highlight from 'highlight.js'
 import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
+import rehypeStringify from 'rehype-stringify/lib'
+import remarkGfm from 'remark-gfm'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import unified from 'unified'
 import { Content } from '~/components/Content'
 import { Layout } from '~/components/Layout'
 import { client, microcmsClient } from '~/libs/client'
@@ -14,12 +19,21 @@ import {
   OG_TITLE
 } from '~/libs/meta'
 import NotFound from '~/pages/404'
-import { Blog } from '~/schema'
+import { Blog, Markdown, RichEdit } from '~/schema'
 
-const preProcessingDom = (rawHTML: string) => {
+const parseMarkdown = (markdown: Markdown) =>
+  unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeStringify)
+    .processSync(markdown)
+    .toString()
+
+const preProcessingDom = (rawHTML: RichEdit) => {
   const dom = new JSDOM(rawHTML)
   const toc: { id: string; name: string; text: string }[] = []
-
+  // 目次生成
   dom.window.document.querySelectorAll('h1, h2, h3').forEach((element) => {
     toc.push({
       id: element.id,
@@ -28,13 +42,14 @@ const preProcessingDom = (rawHTML: string) => {
     })
   })
 
+  // シンタックスハイライト
   dom.window.document.querySelectorAll('pre code').forEach((element) => {
     const res = highlight.highlightAuto(element.textContent ?? '')
     element.innerHTML = res.value
     element.classList.add('hljs')
   })
 
-  return { body: dom.window.document.body.innerHTML, toc }
+  return { contents: dom.window.document.body.innerHTML, toc }
 }
 
 export const getStaticPaths = async () => {
@@ -51,7 +66,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { params, previewData } = context
   const id = params?.id
   const draftKey = hasDraftKey(previewData) ? previewData.draftKey : ''
-  // プレビューモード出ない場合は undefined が入ってくる
+  // プレビューモードでない場合は undefined が入ってくる
   const isPreview = !!context.preview
 
   const blog = await microcmsClient.get<Blog>({
@@ -62,24 +77,40 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   })
 
   const categories = await client.get('categories')
+  // microCMSの繰り返しフィールドを処理しつつ1つのHTMLにつなげる
+  const repeatedFields = blog.body
+    .map((field) => {
+      if (field.fieldId === 'markdown') {
+        return parseMarkdown(field.content)
+      } else {
+        return field.content
+      }
+    })
+    .join('<br>')
 
   // シンタックスハイライト, 目次作成処理
-  const parsedDom = preProcessingDom(blog.body)
-  blog.body = parsedDom.body
+  const { contents, toc } = preProcessingDom(repeatedFields)
 
   return {
     props: {
       blog,
+      contents,
       categories,
       isPreview,
-      toc: parsedDom.toc
+      toc: toc
     }
   }
 }
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>
 
-const BlogId: NextPage<Props> = ({ blog, categories, isPreview, toc }) => {
+const BlogId: NextPage<Props> = ({
+  blog,
+  contents,
+  categories,
+  isPreview,
+  toc
+}) => {
   if (!blog) {
     return <NotFound />
   }
@@ -101,7 +132,12 @@ const BlogId: NextPage<Props> = ({ blog, categories, isPreview, toc }) => {
         <meta key={OG_IMAGE} property={OG_IMAGE} content={blog.ogimage.url} />
       </Head>
       <Layout categories={categories.contents}>
-        <Content blog={blog} toc={toc} isPreview={isPreview} />
+        <Content
+          blog={blog}
+          contents={contents}
+          toc={toc}
+          isPreview={isPreview}
+        />
       </Layout>
     </>
   )

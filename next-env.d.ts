@@ -1,13 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+/// <reference types="next/image-types/global" />
 
-// for Google Analytics
-interface Window {
-  gtag(
-    type: 'config',
-    googleAnalyticsId: string,
-    options: {
-      page_path: string
-    }
-  )
-}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.
