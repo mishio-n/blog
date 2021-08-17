@@ -141,4 +141,38 @@
   em {
     font-style: italic;
   }
+
+  // htmlコンテンツ全体からしかスタイル付与できないため、子クラスはグローバルスコープとする
+  :global {
+    div.note {
+      display: flex;
+      align-items: center;
+      padding: 24px;
+      margin: 24px 0;
+
+      &.info {
+        background-color: #e5f8e2;
+        &::before {
+          content: url('../../public/info.svg');
+          padding-right: 1em;
+        }
+      }
+
+      &.warn {
+        background-color: #fdf9e2;
+        &::before {
+          content: url('../../public/warn.svg');
+          padding-right: 1em;
+        }
+      }
+
+      &.alert {
+        background-color: #fbefee;
+        &::before {
+          content: url('../../public/alert.svg');
+          padding-right: 1em;
+        }
+      }
+    }
+  }
 }
