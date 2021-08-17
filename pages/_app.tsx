@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import { usePageView } from '~/hooks/use-pageview'
-import '~/styles/globals.css'
+import '~/styles/globals.scss'
 import '~/styles/reset.css'
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
