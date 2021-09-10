@@ -18,6 +18,14 @@ import {
   OG_IMAGE,
   OG_TITLE
 } from '~/libs/meta'
+import {
+  admonitionAlert,
+  admonitionAlertHandler,
+  admonitionInfo,
+  admonitionInfoHandler,
+  admonitionWarn,
+  admonitionWarnHandler
+} from '~/libs/remark-plugins/admonition'
 import NotFound from '~/pages/404'
 import { Blog, Markdown, RichEdit } from '~/schema'
 
@@ -25,7 +33,16 @@ const parseMarkdown = (markdown: Markdown) =>
   unified()
     .use(remarkParse)
     .use(remarkGfm)
-    .use(remarkRehype)
+    .use(admonitionInfo)
+    .use(admonitionWarn)
+    .use(admonitionAlert)
+    .use(remarkRehype, {
+      handlers: {
+        alert: admonitionAlertHandler,
+        info: admonitionInfoHandler,
+        warn: admonitionWarnHandler
+      }
+    })
     .use(rehypeStringify)
     .processSync(markdown)
     .toString()

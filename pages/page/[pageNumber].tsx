@@ -17,6 +17,10 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   const { params } = context
+  if (!params) {
+    throw Error('param error')
+  }
+
   const pageNumber = params.pageNumber
   if (typeof pageNumber !== 'string') {
     throw Error('param error')

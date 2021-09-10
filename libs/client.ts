@@ -3,8 +3,8 @@ import { GetRequest } from 'microcms-js-sdk/dist/cjs/types'
 import { Authors, Blogs, Categories } from '~/schema'
 
 export const microcmsClient = createClient({
-  serviceDomain: process.env.SERVICE_DOMAIN,
-  apiKey: process.env.API_KEY
+  serviceDomain: process.env.SERVICE_DOMAIN || '',
+  apiKey: process.env.API_KEY || ''
 })
 
 type Options = Omit<GetRequest, 'endpoint'>
