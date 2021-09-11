@@ -2,11 +2,6 @@ import highlight from 'highlight.js'
 import { JSDOM } from 'jsdom'
 import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
 import Head from 'next/head'
-import rehypeStringify from 'rehype-stringify/lib'
-import remarkGfm from 'remark-gfm'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import unified from 'unified'
 import { Content } from '~/components/Content'
 import { Layout } from '~/components/Layout'
 import { client, microcmsClient } from '~/libs/client'
@@ -18,34 +13,9 @@ import {
   OG_IMAGE,
   OG_TITLE
 } from '~/libs/meta'
-import {
-  admonitionAlert,
-  admonitionAlertHandler,
-  admonitionInfo,
-  admonitionInfoHandler,
-  admonitionWarn,
-  admonitionWarnHandler
-} from '~/libs/remark-plugins/admonition'
+import { parseMarkdown } from '~/libs/parse-markdown'
 import NotFound from '~/pages/404'
-import { Blog, Markdown, RichEdit } from '~/schema'
-
-const parseMarkdown = (markdown: Markdown) =>
-  unified()
-    .use(remarkParse)
-    .use(remarkGfm)
-    .use(admonitionInfo)
-    .use(admonitionWarn)
-    .use(admonitionAlert)
-    .use(remarkRehype, {
-      handlers: {
-        alert: admonitionAlertHandler,
-        info: admonitionInfoHandler,
-        warn: admonitionWarnHandler
-      }
-    })
-    .use(rehypeStringify)
-    .processSync(markdown)
-    .toString()
+import { Blog, RichEdit } from '~/schema'
 
 const preProcessingDom = (rawHTML: RichEdit) => {
   const dom = new JSDOM(rawHTML)
