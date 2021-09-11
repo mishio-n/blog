@@ -178,5 +178,63 @@
         }
       }
     }
+
+    div.race {
+      display: flex;
+      align-items: center;
+      padding: 4px 8px;
+      margin: 4px 0;
+
+      &.honmei {
+        font-weight: bolder;
+        padding: 8px;
+        margin: 8px 0;
+        &::before {
+          content: url('../../public/honmei.svg');
+          padding-right: 0.5em;
+        }
+      }
+
+      &.taikou {
+        &::before {
+          content: url('../../public/taikou.svg');
+          padding-right: 0.5em;
+        }
+      }
+
+      &.tanana {
+        &::before {
+          content: url('../../public/tanana.svg');
+          padding-right: 0.5em;
+        }
+      }
+
+      &.renshita {
+        &::before {
+          content: url('../../public/renshita.svg');
+          padding-right: 0.5em;
+        }
+      }
+    }
+
+    div.raceplan {
+      display: flex;
+      align-items: center;
+      padding: 24px;
+      margin: 24px 0;
+      border: rgba($color: #fdd281, $alpha: 1) 1px dotted;
+      border-radius: 5px;
+      background-color: rgba($color: #fdd281, $alpha: 0.2);
+    }
+
+    div.betting {
+      display: flex;
+      align-items: center;
+      padding: 24px;
+      margin: 24px 0;
+      border: #55c500 1px dotted;
+      border-radius: 5px;
+      background-color: #e9fae7f6;
+    }
   }
 }
