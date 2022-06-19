@@ -1,36 +1,36 @@
-'use strict'
+'use strict';
 
-module.exports = all
-
-var one = require('./one')
+import one from './one';
 
 function all(h, parent) {
-  var nodes = parent.children || []
-  var length = nodes.length
-  var values = []
-  var index = -1
-  var result
-  var head
+  var nodes = parent.children || [];
+  var length = nodes.length;
+  var values = [];
+  var index = -1;
+  var result;
+  var head;
 
   while (++index < length) {
-    result = one(h, nodes[index], parent)
+    result = one(h, nodes[index], parent);
 
     if (result) {
       if (index && nodes[index - 1].type === 'break') {
         if (result.value) {
-          result.value = result.value.replace(/^\s+/, '')
+          result.value = result.value.replace(/^\s+/, '');
         }
 
-        head = result.children && result.children[0]
+        head = result.children && result.children[0];
 
         if (head && head.value) {
-          head.value = head.value.replace(/^\s+/, '')
+          head.value = head.value.replace(/^\s+/, '');
         }
       }
 
-      values = values.concat(result)
+      values = values.concat(result);
     }
   }
 
-  return values
+  return values;
 }
+
+export default all;

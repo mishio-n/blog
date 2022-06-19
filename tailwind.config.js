@@ -1,6 +1,5 @@
 module.exports = {
-  // 指定が効かないので、build時に NODE_ENV=production でビルドする
-  purge: [],
+  content: ['./pages/**/*.tsx', './components/**/*.tsx'],
   darkMode: 'media',
   theme: {
     screens: {
@@ -11,30 +10,30 @@ module.exports = {
       xl: { min: '1280px', max: '1535px' },
       '>1024': { min: '1024px' },
       '<800': { max: '800px' },
-      '>800': { min: '800px' }
+      '>800': { min: '800px' },
     },
     extend: {
       borderRadius: {
         5: '5px',
-        harf: '50%'
+        harf: '50%',
       },
       width: {
         md: '820px',
         lg: '1024px',
         xl: '1280px',
         blog: '960px',
-        thumbnail: '335px'
+        thumbnail: '335px',
       },
       height: {
-        thumbnail: '176px'
-      }
-    }
+        thumbnail: '176px',
+      },
+    },
   },
   variants: {
     padding: ['first'],
     borderWidth: ['last'],
     borderStyle: ['last'],
-    borderColor: ['last']
+    borderColor: ['last'],
   },
-  plugins: []
-}
+  plugins: [],
+};

@@ -1,82 +1,82 @@
-import highlight from 'highlight.js'
-import { JSDOM } from 'jsdom'
-import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next'
-import Head from 'next/head'
-import { Content } from '~/components/Content'
-import { Layout } from '~/components/Layout'
-import { client, microcmsClient } from '~/libs/client'
-import { getAllBlogPaths } from '~/libs/get-paths'
+import highlight from 'highlight.js';
+import { JSDOM } from 'jsdom';
+import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next';
+import Head from 'next/head';
+import { Content } from '~/components/Content';
+import { Layout } from '~/components/Layout';
+import { client, microcmsClient } from '~/libs/client';
+import { getAllBlogPaths } from '~/libs/get-paths';
 import {
   DESCRIPTION,
   generateTitle,
   OG_DESCRIPTION,
   OG_IMAGE,
-  OG_TITLE
-} from '~/libs/meta'
-import { parseMarkdown } from '~/libs/parse-markdown'
-import NotFound from '~/pages/404'
-import { Blog, RichEdit } from '~/schema'
+  OG_TITLE,
+} from '~/libs/meta';
+import { parseMarkdown } from '~/libs/parse-markdown';
+import NotFound from '~/pages/404';
+import { Blog, RichEdit } from '~/schema';
 
 const preProcessingDom = (rawHTML: RichEdit) => {
-  const dom = new JSDOM(rawHTML)
-  const toc: { id: string; name: string; text: string }[] = []
+  const dom = new JSDOM(rawHTML);
+  const toc: { id: string; name: string; text: string }[] = [];
   // 目次生成
   dom.window.document.querySelectorAll('h1, h2, h3').forEach((element) => {
     toc.push({
       id: element.id,
       name: element.tagName,
-      text: element.textContent ?? ''
-    })
-  })
+      text: element.textContent ?? '',
+    });
+  });
 
   // シンタックスハイライト
   dom.window.document.querySelectorAll('pre code').forEach((element) => {
-    const res = highlight.highlightAuto(element.textContent ?? '')
-    element.innerHTML = res.value
-    element.classList.add('hljs')
-  })
+    const res = highlight.highlightAuto(element.textContent ?? '');
+    element.innerHTML = res.value;
+    element.classList.add('hljs');
+  });
 
-  return { contents: dom.window.document.body.innerHTML, toc }
-}
+  return { contents: dom.window.document.body.innerHTML, toc };
+};
 
 export const getStaticPaths = async () => {
-  const paths = await getAllBlogPaths()
-  return { paths, fallback: true }
-}
+  const paths = await getAllBlogPaths();
+  return { paths, fallback: true };
+};
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   // previewData.draftKey が型エラーとなるため、guard関数で回避
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hasDraftKey = (item: any): item is { draftKey: string } =>
-    !!(item?.draftKey && typeof item.draftKey === 'string')
+    !!(item?.draftKey && typeof item.draftKey === 'string');
 
-  const { params, previewData } = context
-  const id = params?.id
-  const draftKey = hasDraftKey(previewData) ? previewData.draftKey : ''
+  const { params, previewData } = context;
+  const id = params?.id;
+  const draftKey = hasDraftKey(previewData) ? previewData.draftKey : '';
   // プレビューモードでない場合は undefined が入ってくる
-  const isPreview = !!context.preview
+  const isPreview = !!context.preview;
 
   const blog = await microcmsClient.get<Blog>({
     endpoint: `blog/${id}`,
     queries: {
-      draftKey
-    }
-  })
+      draftKey,
+    },
+  });
 
-  const categories = await client.get('categories')
+  const categories = await client.get('categories');
   // microCMSの繰り返しフィールドを処理しつつ1つのHTMLにつなげる
   const repeatedFields = blog.body
     .map((field) => {
       if (field.fieldId === 'markdown') {
-        return parseMarkdown(field.content)
+        return parseMarkdown(field.content);
       } else {
-        return field.content
+        return field.content;
       }
     })
-    .join('<br>')
+    .join('<br>');
 
   // シンタックスハイライト, 目次作成処理
-  const { contents, toc } = preProcessingDom(repeatedFields)
+  const { contents, toc } = preProcessingDom(repeatedFields);
 
   return {
     props: {
@@ -84,26 +84,26 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
       contents,
       categories,
       isPreview,
-      toc: toc
-    }
-  }
-}
+      toc: toc,
+    },
+  };
+};
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const BlogId: NextPage<Props> = ({
   blog,
   contents,
   categories,
   isPreview,
-  toc
+  toc,
 }) => {
   if (!blog) {
-    return <NotFound />
+    return <NotFound />;
   }
 
-  const title = generateTitle(blog.title)
-  const description = blog.description
+  const title = generateTitle(blog.title);
+  const description = blog.description;
 
   return (
     <>
@@ -127,7 +127,7 @@ const BlogId: NextPage<Props> = ({
         />
       </Layout>
     </>
-  )
-}
+  );
+};
 
-export default BlogId
+export default BlogId;

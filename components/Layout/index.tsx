@@ -1,19 +1,21 @@
-import Head from 'next/head'
-import { Aside } from '~/components/Aside'
-import { Footer } from '~/components/Footer'
-import { Header } from '~/components/Header'
+import Head from 'next/head';
+import { ReactNode } from 'react';
+import { Aside } from '~/components/Aside';
+import { Footer } from '~/components/Footer';
+import { Header } from '~/components/Header';
 import {
   DESCRIPTION,
   OG_DESCRIPTION,
   OG_IMAGE,
   OG_TYPE,
-  SITE_URL
-} from '~/libs/meta'
-import { Category } from '~/schema'
+  SITE_URL,
+} from '~/libs/meta';
+import { Category } from '~/schema';
 
 type Props = {
-  categories: Category[]
-}
+  children: ReactNode;
+  categories: Category[];
+};
 
 export const Layout: React.FC<Props> = ({ children, categories }) => {
   return (
@@ -36,5 +38,5 @@ export const Layout: React.FC<Props> = ({ children, categories }) => {
       </div>
       <Footer />
     </>
-  )
-}
+  );
+};

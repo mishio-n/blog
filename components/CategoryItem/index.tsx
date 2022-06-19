@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import { Category } from '~/schema'
-import styles from './categoryItem.module.scss'
+import Link from 'next/link';
+import { Category } from '~/schema';
+import styles from './categoryItem.module.scss';
 
 type Props = {
-  requiredMarginLeft: boolean
-  category: Category
-}
+  requiredMarginLeft: boolean;
+  category: Category;
+};
 
 export const CategoryItem: React.FC<Props> = ({
   requiredMarginLeft,
-  category
+  category,
 }) => {
   return (
     <span className={`${styles.item} ${requiredMarginLeft && 'ml-2'}`}>
@@ -17,5 +17,5 @@ export const CategoryItem: React.FC<Props> = ({
         <a>{category.name}</a>
       </Link>
     </span>
-  )
-}
+  );
+};

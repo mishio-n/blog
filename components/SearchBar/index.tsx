@@ -1,25 +1,25 @@
-import { useRouter } from 'next/router'
-import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react'
-import styles from './searchBar.module.scss'
+import { useRouter } from 'next/router';
+import { ChangeEventHandler, KeyboardEventHandler, useState } from 'react';
+import styles from './searchBar.module.scss';
 
 export const SearchBar: React.FC = () => {
-  const [text, setText] = useState('')
-  const router = useRouter()
+  const [text, setText] = useState('');
+  const router = useRouter();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) =>
-    setText(event.currentTarget.value)
+    setText(event.currentTarget.value);
   const handleKeyPress: KeyboardEventHandler<HTMLInputElement> = (event) => {
     if (text === '') {
-      return
+      return;
     }
 
     if (event.key === 'Enter') {
       router.push({
         pathname: `/search`,
-        query: { q: text }
-      })
+        query: { q: text },
+      });
     }
-  }
+  };
 
   return (
     <label className="text-sm font-bold text-gray-500 display">
@@ -31,5 +31,5 @@ export const SearchBar: React.FC = () => {
         onKeyPress={handleKeyPress}
       />
     </label>
-  )
-}
+  );
+};

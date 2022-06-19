@@ -1,9 +1,9 @@
-import { Category } from '~/schema'
-import Link from 'next/link'
+import Link from 'next/link';
+import { Category } from '~/schema';
 
 type Props = {
-  categories: Category[]
-}
+  categories: Category[];
+};
 
 export const CategoryList: React.FC<Props> = ({ categories }) => {
   return (
@@ -24,5 +24,5 @@ export const CategoryList: React.FC<Props> = ({ categories }) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};

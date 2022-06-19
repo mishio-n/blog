@@ -1,29 +1,29 @@
-import { InferGetStaticPropsType, NextPage } from 'next'
-import Head from 'next/head'
-import { Layout } from '~/components/Layout'
-import { client } from '~/libs/client'
-import { generateTitle, OG_TITLE } from '~/libs/meta'
-import Image from 'next/image'
-import clockIcon from '~/public/clock.svg'
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
+import { InferGetStaticPropsType, NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import { Layout } from '~/components/Layout';
+import { client } from '~/libs/client';
+import { generateTitle, OG_TITLE } from '~/libs/meta';
+import clockIcon from '~/public/clock.svg';
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const getStaticProps = async () => {
-  const categories = await client.get('categories')
-  const authors = await client.get('authors')
+  const categories = await client.get('categories');
+  const authors = await client.get('authors');
 
-  const author = authors.contents[0]
+  const author = authors.contents[0];
   return {
     props: {
       categories,
-      author
-    }
-  }
-}
+      author,
+    },
+  };
+};
 
 const About: NextPage<Props> = ({ categories, author }) => {
-  const pagetitle = generateTitle('プロフィール')
+  const pagetitle = generateTitle('プロフィール');
   return (
     <>
       <Head>
@@ -60,7 +60,7 @@ const About: NextPage<Props> = ({ categories, author }) => {
         </div>
       </Layout>
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;

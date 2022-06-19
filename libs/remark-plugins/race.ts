@@ -1,88 +1,88 @@
-import { Plugin } from 'unified'
-import { Node, Parent } from 'unist'
-import { Paragraph } from 'mdast'
-import { isParent, isText, isParagraph } from './util'
-import visit from 'unist-util-visit'
-import { H } from 'mdast-util-to-hast'
-import all from './all.js'
+import { Paragraph } from 'mdast';
+import { H } from 'mdast-util-to-hast';
+import { Plugin } from 'unified';
+import { Node, Parent } from 'unist';
+import { visit } from 'unist-util-visit';
+import all from './all.js';
+import { isParagraph, isParent, isText } from './util';
 
-const RACE_PATTERN = /race (.) (\d+) (.+)$/
+const RACE_PATTERN = /race (.) (\d+) (.+)$/;
 
 function isRace(node: unknown): node is Paragraph {
   if (!isParagraph(node)) {
-    return false
+    return false;
   }
 
-  const { children } = node
+  const { children } = node;
 
-  const firstChild = children[0]
+  const firstChild = children[0];
   if (!(isText(firstChild) && firstChild.value.match(RACE_PATTERN))) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 const processChild = (children: Array<Node>, regexp: RegExp) => {
-  const firstChild = children[0]
-  const firstValue = firstChild.value as string
-  const matched = firstValue.match(regexp)
+  const firstChild = children[0];
+  const firstValue = firstChild.value as string;
+  const matched = firstValue.match(regexp);
   if (matched) {
     children[0] = {
       ...firstChild,
       value: `${matched[2]} ${matched[3]}`,
-      symbol: matched[1]
-    }
+      symbol: matched[1],
+    };
   }
-}
+};
 
 const raceVisitor = (node: Paragraph, index: number, parent?: Parent) => {
   if (!isParent(parent)) {
-    return
+    return;
   }
 
-  const children = [...node.children]
-  processChild(children, RACE_PATTERN)
+  const children = [...node.children];
+  processChild(children, RACE_PATTERN);
 
   parent.children[index] = {
     type: 'race',
-    children
-  }
-}
+    children,
+  };
+};
 
 export const racePlugin: Plugin = () => {
   return (tree: Node) => {
-    visit(tree, isRace, raceVisitor)
-  }
-}
+    visit(tree, isRace, raceVisitor);
+  };
+};
 
 export const raceHandler = (h: H, node: Node) => {
   // children が unknownになるため
   const children = node.children as {
-    value: string
-    symbol: string
-  }[]
+    value: string;
+    symbol: string;
+  }[];
 
   const symbol = (() => {
     switch (children[0].symbol) {
       case '◎':
-        return 'honmei'
+        return 'honmei';
       case '○':
-        return 'taikou'
+        return 'taikou';
       case '▲':
-        return 'tanana'
+        return 'tanana';
       case '△':
-        return 'renshita'
+        return 'renshita';
       default:
-        return ''
+        return '';
     }
-  })()
+  })();
 
   return {
     type: 'element',
     tagName: 'div',
     properties: {
-      className: ['race', symbol]
+      className: ['race', symbol],
     },
-    children: all(h, node)
-  }
-}
+    children: all(h, node),
+  };
+};

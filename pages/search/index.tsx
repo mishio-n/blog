@@ -1,39 +1,39 @@
-import { InferGetStaticPropsType, NextPage } from 'next'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import useSWR from 'swr'
-import { Articles } from '~/components/Articles'
-import { Layout } from '~/components/Layout'
-import { client } from '~/libs/client'
-import { generateTitle, OG_TITLE } from '~/libs/meta'
-import { Blogs } from '~/schema'
+import { InferGetStaticPropsType, NextPage } from 'next';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { Articles } from '~/components/Articles';
+import { Layout } from '~/components/Layout';
+import { client } from '~/libs/client';
+import { generateTitle, OG_TITLE } from '~/libs/meta';
+import { Blogs } from '~/schema';
 
 export const getStaticProps = async () => {
-  const categories = await client.get('categories')
+  const categories = await client.get('categories');
 
   return {
     props: {
-      categories: categories.contents
-    }
-  }
-}
+      categories: categories.contents,
+    },
+  };
+};
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 const SearchResultPage: NextPage<Props> = ({ categories }) => {
-  const title = generateTitle('検索結果')
+  const title = generateTitle('検索結果');
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const searchWord = router.query.q
+  const searchWord = router.query.q;
 
   const { data: blogs, error } = useSWR<Blogs>(
     `/api/search?q=${searchWord}`,
-    (url) => fetch(url).then((res) => res.json())
-  )
+    (url) => fetch(url).then((res) => res.json()),
+  );
 
   if (error) {
-    return <p>検索エラー</p>
+    return <p>検索エラー</p>;
   }
 
   return (
@@ -59,7 +59,7 @@ const SearchResultPage: NextPage<Props> = ({ categories }) => {
         )}
       </Layout>
     </>
-  )
-}
+  );
+};
 
-export default SearchResultPage
+export default SearchResultPage;

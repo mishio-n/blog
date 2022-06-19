@@ -1,26 +1,26 @@
-import { useEffect, useState } from 'react'
-import { useWindowSize } from 'react-use'
-import { Link as ScrollLink } from 'react-scroll'
-import styles from './toc.module.scss'
+import { useEffect, useState } from 'react';
+import { Link as ScrollLink } from 'react-scroll';
+import { useWindowSize } from 'react-use';
+import styles from './toc.module.scss';
 
 type Props = {
   toc: {
-    id: string
-    name: string
-    text: string
-  }[]
-}
+    id: string;
+    name: string;
+    text: string;
+  }[];
+};
 
 export const Toc: React.FC<Props> = ({ toc }) => {
-  const { width } = useWindowSize(800)
-  const [headerHeight, setHeaderHeight] = useState(60)
+  const { width } = useWindowSize(800);
+  const [headerHeight, setHeaderHeight] = useState(60);
 
   useEffect(() => {
-    const header = window.document.getElementById('header')
+    const header = window.document.getElementById('header');
     if (header) {
-      setHeaderHeight(header.clientHeight)
+      setHeaderHeight(header.clientHeight);
     }
-  }, [width])
+  }, [width]);
 
   return (
     <div className={styles.wrapper}>
@@ -35,5 +35,5 @@ export const Toc: React.FC<Props> = ({ toc }) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};

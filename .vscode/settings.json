@@ -1,19 +1,21 @@
 {
-  "editor.formatOnSave": true,
-  "eslint.run": "onSave",
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "[typescriptreact]": {
+    "editor.formatOnSave": true,
     "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
   },
   "[typescript]": {
+    "editor.formatOnSave": true,
     "editor.tabSize": 2,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
   },
-  "eslint.validate": ["typescriptreact"],
   "scss.validate": false,
   "css.validate": false,
   "stylelint.enable": true,

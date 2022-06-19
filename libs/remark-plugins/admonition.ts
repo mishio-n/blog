@@ -1,189 +1,189 @@
-import { Plugin } from 'unified'
-import { Node, Parent } from 'unist'
-import { Paragraph } from 'mdast'
-import { isParent, isText, isParagraph } from './util'
-import visit from 'unist-util-visit'
-import { H } from 'mdast-util-to-hast'
-import all from './all.js'
+import { Paragraph } from 'mdast';
+import { H } from 'mdast-util-to-hast';
+import { Plugin } from 'unified';
+import { Node, Parent } from 'unist';
+import { visit } from 'unist-util-visit';
+import all from './all.js';
+import { isParagraph, isParent, isText } from './util';
 
-const INFO_BEGGINING = ':::note info\n'
-const WARN_BEGGINING = ':::note warn\n'
-const ALERT_BEGGINING = ':::note alert\n'
-const ENDING = '\n:::'
+const INFO_BEGGINING = ':::note info\n';
+const WARN_BEGGINING = ':::note warn\n';
+const ALERT_BEGGINING = ':::note alert\n';
+const ENDING = '\n:::';
 
 function isAdmonitionInfo(node: unknown): node is Paragraph {
   if (!isParagraph(node)) {
-    return false
+    return false;
   }
 
-  const { children } = node
+  const { children } = node;
 
-  const firstChild = children[0]
+  const firstChild = children[0];
   if (!(isText(firstChild) && firstChild.value.startsWith(INFO_BEGGINING))) {
-    return false
+    return false;
   }
 
-  const lastChild = children[children.length - 1]
+  const lastChild = children[children.length - 1];
   if (!(isText(lastChild) && lastChild.value.endsWith(ENDING))) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 function isAdmonitionAlert(node: unknown): node is Paragraph {
   if (!isParagraph(node)) {
-    return false
+    return false;
   }
 
-  const { children } = node
+  const { children } = node;
 
-  const firstChild = children[0]
+  const firstChild = children[0];
   if (!(isText(firstChild) && firstChild.value.startsWith(ALERT_BEGGINING))) {
-    return false
+    return false;
   }
 
-  const lastChild = children[children.length - 1]
+  const lastChild = children[children.length - 1];
   if (!(isText(lastChild) && lastChild.value.endsWith(ENDING))) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 function isAdmonitionWarn(node: unknown): node is Paragraph {
   if (!isParagraph(node)) {
-    return false
+    return false;
   }
 
-  const { children } = node
+  const { children } = node;
 
-  const firstChild = children[0]
+  const firstChild = children[0];
   if (!(isText(firstChild) && firstChild.value.startsWith(WARN_BEGGINING))) {
-    return false
+    return false;
   }
 
-  const lastChild = children[children.length - 1]
+  const lastChild = children[children.length - 1];
   if (!(isText(lastChild) && lastChild.value.endsWith(ENDING))) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 const processFirstChild = (children: Array<Node>, identifier: string) => {
-  const firstChild = children[0]
-  const firstValue = firstChild.value as string
+  const firstChild = children[0];
+  const firstValue = firstChild.value as string;
   if (firstValue === identifier) {
-    children.shift()
+    children.shift();
   } else {
     children[0] = {
       ...firstChild,
-      value: firstValue.slice(identifier.length)
-    }
+      value: firstValue.slice(identifier.length),
+    };
   }
-}
+};
 
 const processLastChild = (children: Array<Node>, identifier: string) => {
-  const lastIndex = children.length - 1
-  const lastChild = children[lastIndex]
-  const lastValue = lastChild.value as string
+  const lastIndex = children.length - 1;
+  const lastChild = children[lastIndex];
+  const lastValue = lastChild.value as string;
   if (lastValue === identifier) {
-    children.pop()
+    children.pop();
   } else {
     children[lastIndex] = {
       ...lastChild,
-      value: lastValue.slice(0, lastValue.length - identifier.length)
-    }
+      value: lastValue.slice(0, lastValue.length - identifier.length),
+    };
   }
-}
+};
 
 const infoVisitor = (node: Paragraph, index: number, parent?: Parent) => {
   if (!isParent(parent)) {
-    return
+    return;
   }
 
-  const children = [...node.children]
-  processFirstChild(children, INFO_BEGGINING)
-  processLastChild(children, ENDING)
+  const children = [...node.children];
+  processFirstChild(children, INFO_BEGGINING);
+  processLastChild(children, ENDING);
 
   parent.children[index] = {
     type: 'info',
-    children
-  }
-}
+    children,
+  };
+};
 
 export const admonitionInfo: Plugin = () => {
   return (tree: Node) => {
-    visit(tree, isAdmonitionInfo, infoVisitor)
-  }
-}
+    visit(tree, isAdmonitionInfo, infoVisitor);
+  };
+};
 
 const warnVisitor = (node: Paragraph, index: number, parent?: Parent) => {
   if (!isParent(parent)) {
-    return
+    return;
   }
 
-  const children = [...node.children]
-  processFirstChild(children, WARN_BEGGINING)
-  processLastChild(children, ENDING)
+  const children = [...node.children];
+  processFirstChild(children, WARN_BEGGINING);
+  processLastChild(children, ENDING);
 
   parent.children[index] = {
     type: 'warn',
-    children
-  }
-}
+    children,
+  };
+};
 
 export const admonitionWarn: Plugin = () => {
   return (tree: Node) => {
-    visit(tree, isAdmonitionWarn, warnVisitor)
-  }
-}
+    visit(tree, isAdmonitionWarn, warnVisitor);
+  };
+};
 
 const alertVisitor = (node: Paragraph, index: number, parent?: Parent) => {
   if (!isParent(parent)) {
-    return
+    return;
   }
 
-  const children = [...node.children]
-  processFirstChild(children, ALERT_BEGGINING)
-  processLastChild(children, ENDING)
+  const children = [...node.children];
+  processFirstChild(children, ALERT_BEGGINING);
+  processLastChild(children, ENDING);
 
   parent.children[index] = {
     type: 'alert',
-    children
-  }
-}
+    children,
+  };
+};
 
 export const admonitionAlert: Plugin = () => {
   return (tree: Node) => {
-    visit(tree, isAdmonitionAlert, alertVisitor)
-  }
-}
+    visit(tree, isAdmonitionAlert, alertVisitor);
+  };
+};
 
 export const admonitionAlertHandler = (h: H, node: Node) => ({
   type: 'element',
   tagName: 'div',
   properties: {
-    className: ['note', 'alert']
+    className: ['note', 'alert'],
   },
-  children: all(h, node)
-})
+  children: all(h, node),
+});
 
 export const admonitionWarnHandler = (h: H, node: Node) => ({
   type: 'element',
   tagName: 'div',
   properties: {
-    className: ['note', 'warn']
+    className: ['note', 'warn'],
   },
-  children: all(h, node)
-})
+  children: all(h, node),
+});
 
 export const admonitionInfoHandler = (h: H, node: Node) => ({
   type: 'element',
   tagName: 'div',
   properties: {
-    className: ['note', 'info']
+    className: ['note', 'info'],
   },
-  children: all(h, node)
-})
+  children: all(h, node),
+});

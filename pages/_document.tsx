@@ -3,14 +3,14 @@ import NextDocument, {
   Head,
   Html,
   Main,
-  NextScript
-} from 'next/document'
-import { GOOGLE_ANALYTICS_ID } from '~/libs/gtag'
+  NextScript,
+} from 'next/document';
+import { GOOGLE_ANALYTICS_ID } from '~/libs/gtag';
 
 class MyDocument extends NextDocument {
   static async getInitialProps(context: DocumentContext) {
-    const initialProps = await super.getInitialProps(context)
-    return { ...initialProps }
+    const initialProps = await super.getInitialProps(context);
+    return { ...initialProps };
   }
 
   render() {
@@ -30,7 +30,7 @@ class MyDocument extends NextDocument {
                           gtag('js', new Date());
                           gtag('config', '${GOOGLE_ANALYTICS_ID}', {
                             page_path: window.location.pathname,
-                          });`
+                          });`,
             }}
           />
           <link
@@ -47,8 +47,8 @@ class MyDocument extends NextDocument {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
-export default MyDocument
+export default MyDocument;

@@ -1,9 +1,9 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import icon from '~/public/icon-192x192.png'
-import { SearchBar } from '~/components/SearchBar'
+import Image from 'next/image';
+import Link from 'next/link';
+import { SearchBar } from '~/components/SearchBar';
+import icon from '~/public/icon-192x192.png';
 
-const links = [{ href: '/about', text: 'プロフィール' }]
+const links = [{ href: '/about', text: 'プロフィール' }];
 
 export const Header: React.FC = () => {
   return (
@@ -41,5 +41,5 @@ export const Header: React.FC = () => {
       </header>
       <div className=">800:h-8 <800:h-4"></div>
     </>
-  )
-}
+  );
+};

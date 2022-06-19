@@ -1,14 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-import dayjs from 'dayjs'
-import Image from 'next/image'
-import Link from 'next/link'
-import { CategoryItem } from '~/components/CategoryItem'
-import clockIcon from '~/public/clock.svg'
-import { Blog } from '~/schema'
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import Link from 'next/link';
+import { CategoryItem } from '~/components/CategoryItem';
+import clockIcon from '~/public/clock.svg';
+import { Blog } from '~/schema';
 
 type Props = {
-  blogs: Blog[]
-}
+  blogs: Blog[];
+};
 
 export const Articles: React.FC<Props> = ({ blogs }) => {
   return (
@@ -72,5 +72,5 @@ export const Articles: React.FC<Props> = ({ blogs }) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};

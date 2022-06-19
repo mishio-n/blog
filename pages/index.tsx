@@ -1,30 +1,30 @@
-import { InferGetStaticPropsType, NextPage } from 'next'
-import Head from 'next/head'
-import { Articles } from '~/components/Articles'
-import { Layout } from '~/components/Layout'
-import { Pager } from '~/components/Pager'
-import { client } from '~/libs/client'
-import { generateTitle, OG_TITLE } from '~/libs/meta'
+import { InferGetStaticPropsType, NextPage } from 'next';
+import Head from 'next/head';
+import { Articles } from '~/components/Articles';
+import { Layout } from '~/components/Layout';
+import { Pager } from '~/components/Pager';
+import { client } from '~/libs/client';
+import { generateTitle, OG_TITLE } from '~/libs/meta';
 
-type Props = InferGetStaticPropsType<typeof getStaticProps>
+type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
 export const getStaticProps = async () => {
   const blogs = await client.get('blog', {
-    queries: { offset: 0, limit: 10 }
-  })
+    queries: { offset: 0, limit: 10 },
+  });
 
-  const categories = await client.get('categories')
+  const categories = await client.get('categories');
 
   return {
     props: {
       blogs,
-      categories
-    }
-  }
-}
+      categories,
+    },
+  };
+};
 
 const Home: NextPage<Props> = ({ blogs, categories }) => {
-  const pagetitle = generateTitle()
+  const pagetitle = generateTitle();
   return (
     <>
       <Head>
@@ -36,7 +36,7 @@ const Home: NextPage<Props> = ({ blogs, categories }) => {
         <Pager totalCount={blogs.totalCount} currentPageNumber={1} />
       </Layout>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

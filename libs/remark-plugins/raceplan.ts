@@ -1,89 +1,89 @@
-import { Plugin } from 'unified'
-import { Node, Parent } from 'unist'
-import { Paragraph } from 'mdast'
-import { isParent, isText, isParagraph } from './util'
-import visit from 'unist-util-visit'
-import { H } from 'mdast-util-to-hast'
-import all from './all.js'
+import { Paragraph } from 'mdast';
+import { H } from 'mdast-util-to-hast';
+import { Plugin } from 'unified';
+import { Node, Parent } from 'unist';
+import { visit } from 'unist-util-visit';
+import all from './all.js';
+import { isParagraph, isParent, isText } from './util';
 
-const BEGGINING = ':::raceplan\n'
-const ENDING = '\n:::'
+const BEGGINING = ':::raceplan\n';
+const ENDING = '\n:::';
 
 function isRaceplan(node: unknown): node is Paragraph {
   if (!isParagraph(node)) {
-    return false
+    return false;
   }
 
-  const { children } = node
+  const { children } = node;
 
-  const firstChild = children[0]
+  const firstChild = children[0];
   if (!(isText(firstChild) && firstChild.value.startsWith(BEGGINING))) {
-    return false
+    return false;
   }
 
-  const lastChild = children[children.length - 1]
+  const lastChild = children[children.length - 1];
   if (!(isText(lastChild) && lastChild.value.endsWith(ENDING))) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 }
 
 const processFirstChild = (children: Array<Node>, identifier: string) => {
-  const firstChild = children[0]
-  const firstValue = firstChild.value as string
+  const firstChild = children[0];
+  const firstValue = firstChild.value as string;
   if (firstValue === identifier) {
-    children.shift()
+    children.shift();
   } else {
     children[0] = {
       ...firstChild,
-      value: firstValue.slice(identifier.length)
-    }
+      value: firstValue.slice(identifier.length),
+    };
   }
-}
+};
 
 const processLastChild = (children: Array<Node>, identifier: string) => {
-  const lastIndex = children.length - 1
-  const lastChild = children[lastIndex]
-  const lastValue = lastChild.value as string
+  const lastIndex = children.length - 1;
+  const lastChild = children[lastIndex];
+  const lastValue = lastChild.value as string;
   if (lastValue === identifier) {
-    children.pop()
+    children.pop();
   } else {
     children[lastIndex] = {
       ...lastChild,
-      value: lastValue.slice(0, lastValue.length - identifier.length)
-    }
+      value: lastValue.slice(0, lastValue.length - identifier.length),
+    };
   }
-}
+};
 
 const raceplanVisitor = (node: Paragraph, index: number, parent?: Parent) => {
   if (!isParent(parent)) {
-    return
+    return;
   }
 
-  const children = [...node.children]
-  processFirstChild(children, BEGGINING)
-  processLastChild(children, ENDING)
+  const children = [...node.children];
+  processFirstChild(children, BEGGINING);
+  processLastChild(children, ENDING);
 
   parent.children[index] = {
     type: 'raceplan',
-    children
-  }
-}
+    children,
+  };
+};
 
 export const raceplanPlugin: Plugin = () => {
   return (tree: Node) => {
-    visit(tree, isRaceplan, raceplanVisitor)
-  }
-}
+    visit(tree, isRaceplan, raceplanVisitor);
+  };
+};
 
 export const raceplanHandler = (h: H, node: Node) => {
   return {
     type: 'element',
     tagName: 'div',
     properties: {
-      className: ['raceplan']
+      className: ['raceplan'],
     },
-    children: all(h, node)
-  }
-}
+    children: all(h, node),
+  };
+};

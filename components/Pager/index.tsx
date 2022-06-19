@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import { range } from '~/libs/range'
+import Link from 'next/link';
+import { range } from '~/libs/range';
 
 type Props = {
-  totalCount: number
-  currentPageNumber: number
-}
+  totalCount: number;
+  currentPageNumber: number;
+};
 
-const PER_PAGE = 10
+const PER_PAGE = 10;
 
 export const Pager: React.FC<Props> = ({ totalCount, currentPageNumber }) => {
-  const pages = range(1, Math.ceil(totalCount / PER_PAGE))
+  const pages = range(1, Math.ceil(totalCount / PER_PAGE));
   return (
     <ul className="flex flex-wrap items-center justify-center px-0 pt-20 pb-0">
       {pages.map((pageNumber, index) => (
@@ -31,5 +31,5 @@ export const Pager: React.FC<Props> = ({ totalCount, currentPageNumber }) => {
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};

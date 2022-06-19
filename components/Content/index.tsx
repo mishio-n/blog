@@ -1,26 +1,26 @@
-import dayjs from 'dayjs'
-import Image from 'next/image'
-import { useWindowSize } from 'react-use'
-import clockIcon from '~/public/clock.svg'
-import { Blog } from '~/schema'
-import { CategoryItem } from '../CategoryItem'
-import { Toc } from '../Toc'
-import styles from './content.module.scss'
+import dayjs from 'dayjs';
+import Image from 'next/image';
+import { useWindowSize } from 'react-use';
+import clockIcon from '~/public/clock.svg';
+import { Blog } from '~/schema';
+import { CategoryItem } from '../CategoryItem';
+import { Toc } from '../Toc';
+import styles from './content.module.scss';
 
 type Props = {
-  blog: Blog
-  contents: string
-  toc: { id: string; name: string; text: string }[]
-  isPreview: boolean
-}
+  blog: Blog;
+  contents: string;
+  toc: { id: string; name: string; text: string }[];
+  isPreview: boolean;
+};
 
 export const Content: React.FC<Props> = ({
   blog,
   contents,
   toc,
-  isPreview
+  isPreview,
 }) => {
-  const { width } = useWindowSize()
+  const { width } = useWindowSize();
 
   return (
     <>
@@ -75,11 +75,11 @@ export const Content: React.FC<Props> = ({
         {blog.toc_visible && <Toc toc={toc} />}
         <div
           dangerouslySetInnerHTML={{
-            __html: contents
+            __html: contents,
           }}
           className={styles.blog}
         ></div>
       </main>
     </>
-  )
-}
+  );
+};

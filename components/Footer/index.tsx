@@ -5,5 +5,5 @@ export const Footer: React.FC = () => {
         © mishio
       </p>
     </footer>
-  )
-}
+  );
+};
