@@ -42,7 +42,7 @@ class MyDocument extends NextDocument {
             src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"
           ></script>
         </Head>
-        <body>
+        <body className="bg-base-100">
           <Main />
           <NextScript />
         </body>

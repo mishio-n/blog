@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
     <>
       <header
         id="header"
-        className="sticky top-0 bottom-0 left-0 right-0 z-10 flex items-center justify-between px-10 py-3 bg-white border-b border-gray-300 border-solid >800:flex-wrap"
+        className="sticky top-0 left-0 z-99 bg-neutral flex items-center justify-between px-10 py-3 >800:flex-wrap"
       >
         <h1 className="px-0 py-2 mr-8 sm:inline-block sm:h-7">
           <Link href="/">
@@ -19,10 +19,12 @@ export const Header: React.FC = () => {
                 src={icon}
                 className="h-7"
                 alt="logo"
-                width={28}
-                height={28}
+                width={32}
+                height={32}
               />
-              <span className="pl-2">mishioブログ</span>
+              <span className="ml-4 text-accent font-bold text-2xl">
+                mishioブログ
+              </span>
             </a>
           </Link>
         </h1>
@@ -32,7 +34,7 @@ export const Header: React.FC = () => {
             {links.map((link) => (
               <li className="px-4 py-0 whitespace-nowrap" key={link.text}>
                 <a href={link.href} className="block px-0 py-2 text-gray-500 ">
-                  {link.text}
+                  <span className="text-base-100">{link.text}</span>
                 </a>
               </li>
             ))}

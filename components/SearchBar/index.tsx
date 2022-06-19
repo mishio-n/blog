@@ -22,7 +22,7 @@ export const SearchBar: React.FC = () => {
   };
 
   return (
-    <label className="text-sm font-bold text-gray-500 display">
+    <label className="text-sm font-bold text-neutral display">
       <input
         type="text"
         placeholder="検索する"
