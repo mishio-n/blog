@@ -4,6 +4,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { Content } from '~/components/Content';
 import { Layout } from '~/components/Layout';
+import { TocItem } from '~/components/Toc';
 import { client, microcmsClient } from '~/libs/client';
 import { getAllBlogPaths } from '~/libs/get-paths';
 import {
@@ -19,13 +20,14 @@ import { Blog, RichEdit } from '~/schema';
 
 const preProcessingDom = (rawHTML: RichEdit) => {
   const dom = new JSDOM(rawHTML);
-  const toc: { id: string; name: string; text: string }[] = [];
+  const toc: TocItem[] = [];
   // 目次生成
   dom.window.document.querySelectorAll('h1, h2, h3').forEach((element) => {
     toc.push({
       id: element.id,
       name: element.tagName,
       text: element.textContent ?? '',
+      tag: element.tagName as TocItem['tag'],
     });
   });
 

@@ -3,12 +3,15 @@ import { Link as ScrollLink } from 'react-scroll';
 import { useWindowSize } from 'react-use';
 import styles from './toc.module.scss';
 
+export type TocItem = {
+  id: string;
+  name: string;
+  text: string;
+  tag: 'H1' | 'H2' | 'H3';
+};
+
 type Props = {
-  toc: {
-    id: string;
-    name: string;
-    text: string;
-  }[];
+  toc: TocItem[];
 };
 
 export const Toc: React.FC<Props> = ({ toc }) => {
@@ -27,7 +30,10 @@ export const Toc: React.FC<Props> = ({ toc }) => {
       <h4 className={styles.title}>目次</h4>
       <ul>
         {toc.map((item) => (
-          <li key={item.id} className={styles.list}>
+          <li
+            key={item.id}
+            className={`${styles.list} ${styles[item.tag.toLowerCase()]}`}
+          >
             <ScrollLink to={item.id} offset={-headerHeight}>
               {item.text}
             </ScrollLink>

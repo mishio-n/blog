@@ -4,13 +4,13 @@ import { useWindowSize } from 'react-use';
 import clockIcon from '~/public/clock.svg';
 import { Blog } from '~/schema';
 import { CategoryItem } from '../CategoryItem';
-import { Toc } from '../Toc';
+import { Toc, TocItem } from '../Toc';
 import styles from './content.module.scss';
 
 type Props = {
   blog: Blog;
   contents: string;
-  toc: { id: string; name: string; text: string }[];
+  toc: TocItem[];
   isPreview: boolean;
 };
 

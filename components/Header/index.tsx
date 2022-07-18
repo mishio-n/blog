@@ -10,7 +10,7 @@ export const Header: React.FC = () => {
     <>
       <header
         id="header"
-        className="sticky top-0 left-0 z-99 bg-neutral flex items-center justify-between px-10 py-3 >800:flex-wrap"
+        className="sticky top-0 left-0 z-50 bg-neutral flex items-center justify-between px-10 py-3 >800:flex-wrap"
       >
         <h1 className="px-0 py-2 mr-8 sm:inline-block sm:h-7">
           <Link href="/">
@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
                 width={32}
                 height={32}
               />
-              <span className="ml-4 text-accent font-bold text-2xl">
+              <span className="ml-4 text-secondary font-bold text-2xl">
                 mishioブログ
               </span>
             </a>
