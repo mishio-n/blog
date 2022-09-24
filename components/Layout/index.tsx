@@ -32,7 +32,7 @@ export const Layout: React.FC<Props> = ({ children, categories }) => {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <Header />
-      <div className="px-5 mx-auto mt-5 mb-0 >1024:flex >1024:justify-between >1024:w-lg">
+      <div className="mx-auto mt-5 mb-0 px-5 >1024:flex >1024:w-lg >1024:justify-between">
         <div className="lg:w-md">{children}</div>
         <Aside categories={categories} />
       </div>
