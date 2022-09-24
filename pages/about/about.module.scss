@@ -1,0 +1,137 @@
+.about {
+  & > h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 40px 0 16px;
+    border-bottom: 3px dotted orange;
+    padding-bottom: 0.3em;
+  }
+
+  & > h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 40px 0 16px;
+    border-bottom: 2px solid rgb(211, 211, 211);
+    padding-bottom: 0.3em;
+  }
+
+  & > p {
+    line-height: 1.8;
+    letter-spacing: 0.2px;
+  }
+
+  & > ol {
+    list-style-type: none;
+    list-style-position: inside;
+  }
+
+  & > ul {
+    list-style-type: none;
+    list-style-position: inside;
+  }
+
+  & > ul > li > ul {
+    margin-left: 2em;
+    padding-top: 0.2rem;
+    list-style-type: none;
+    list-style-position: inside;
+  }
+
+  li {
+    padding: 0.5rem 0;
+    margin-left: 1rem;
+
+    &:before {
+      color: #f3a7a9;
+      content: '●';
+      font-size: small;
+      padding-right: 0.5rem;
+    }
+  }
+
+  p > code {
+    border-radius: 5px;
+    padding: 0.5em 1em 0.5em 1em;
+    background-color: #1d1f21;
+    color: #c5c8c6;
+  }
+
+  pre > code {
+    border-radius: 5px;
+  }
+
+  a {
+    color: #2a96c9;
+    position: relative;
+    display: inline-block;
+    word-break: break-all;
+  }
+  a:visited {
+    color: #2a96c9;
+  }
+
+  a::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: #2a96c9;
+    transition: 0.6s;
+    transform: translateX(0%);
+  }
+
+  a:hover::after {
+    width: 100%;
+  }
+
+  blockquote {
+    border-left: 5px solid #ddd;
+    color: #777;
+    padding: 1em;
+    padding-right: 0;
+    margin: 1.5em 0;
+    line-height: 1.5em;
+  }
+
+  table {
+    margin: 1.2rem auto;
+    width: auto;
+    border-collapse: collapse;
+    font-size: 0.95em;
+    line-height: 1.5;
+    word-break: normal;
+    display: block;
+    overflow: auto;
+    border-spacing: 2px;
+    border-color: gray;
+  }
+
+  th {
+    font-weight: 700;
+    background-color: #edf2f7 !important;
+  }
+
+  td,
+  th {
+    padding: 0.5rem;
+    border: 1px solid #cfdce6;
+    background-color: white;
+  }
+
+  hr {
+    margin: 3em 0;
+    border: 0;
+    height: 2px;
+    background-color: #ddd;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    font-weight: bolder;
+  }
+}

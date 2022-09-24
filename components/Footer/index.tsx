@@ -3,7 +3,7 @@ import githubIcon from '../../public/GitHub-Mark-120px-plus.png';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="absolute bottom-0 left-0 z-10 mt-12 w-full flex-col bg-base-200 px-10 pt-4 pb-5 text-black sm:mt-5 sm:px-5 sm:py-8">
+    <footer className="z-10 mt-12 w-full flex-col bg-base-200 px-10 pt-4 pb-5 text-black sm:mt-5 sm:px-5 sm:py-8">
       <p className="mt-3 text-center text-sm text-neutral sm:text-xs">
         © mishio
       </p>

@@ -6,6 +6,7 @@ import { Layout } from '~/components/Layout';
 import { client } from '~/libs/client';
 import { generateTitle, OG_TITLE } from '~/libs/meta';
 import clockIcon from '~/public/clock.svg';
+import styles from './about.module.scss';
 
 type Props = InferGetStaticPropsType<typeof getStaticProps>;
 
@@ -34,17 +35,6 @@ const About: NextPage<Props> = ({ categories, author }) => {
       </Head>
       <Layout categories={categories.contents}>
         <div className="flex-col">
-          <Image
-            src={author.image.url}
-            height={author.image.height / 8}
-            width={author.image.width / 8}
-            alt="著者画像"
-            loading="lazy"
-            blurDataURL={author.image.url}
-            placeholder="blur"
-            className="rounded-harf"
-          />
-          <span>{author.name}</span>
           <div className="mt-2 mr-5 flex items-center whitespace-nowrap text-gray-500">
             <Image src={clockIcon} alt="時計アイコン" width={20} height={20} />
             <span className="ml-2">
@@ -53,7 +43,7 @@ const About: NextPage<Props> = ({ categories, author }) => {
             </span>
           </div>
           <div
-            className="mt-4"
+            className={styles.about}
             dangerouslySetInnerHTML={{ __html: author.profile }}
           />
         </div>

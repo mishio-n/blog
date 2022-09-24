@@ -31,12 +31,14 @@ export const Layout: React.FC<Props> = ({ children, categories }) => {
         />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Header />
-      <div className="mx-auto mt-5 mb-0 px-5 >1024:flex >1024:w-lg >1024:justify-between">
-        <div className="lg:w-md">{children}</div>
-        <Aside categories={categories} />
+      <div className="flex min-h-[100vh] flex-col">
+        <Header />
+        <div className="mx-auto mt-5 mb-0 flex-1 px-5 >1024:flex >1024:w-lg >1024:justify-between">
+          <div className="flex-[4] lg:w-md">{children}</div>
+          <Aside categories={categories} classname={'flex-[1]'} />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };
