@@ -33,7 +33,7 @@ export type HTML = TextArea;
 
 export type Author = ListMetaData & {
   name: TextField;
-  profile: TextArea;
+  profile: RichEdit;
   image: Image;
 };
 

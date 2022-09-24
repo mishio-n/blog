@@ -14,6 +14,8 @@ export const getStaticProps = async () => {
   const authors = await client.get('authors');
 
   const author = authors.contents[0];
+
+  console.log(author.profile);
   return {
     props: {
       categories,
@@ -43,20 +45,17 @@ const About: NextPage<Props> = ({ categories, author }) => {
             className="rounded-harf"
           />
           <span>{author.name}</span>
-          <div className="flex items-center mt-2 mr-5 text-gray-500 whitespace-nowrap">
+          <div className="mt-2 mr-5 flex items-center whitespace-nowrap text-gray-500">
             <Image src={clockIcon} alt="時計アイコン" width={20} height={20} />
             <span className="ml-2">
               更新日:
               {dayjs(author.updatedAt).format('YYYY/MM/DD')}
             </span>
           </div>
-          <div className="mt-4">
-            {author.profile.split('\n').map((line, i) => (
-              <p key={`line-${i}`} className="pt-1">
-                {line}
-              </p>
-            ))}
-          </div>
+          <div
+            className="mt-4"
+            dangerouslySetInnerHTML={{ __html: author.profile }}
+          />
         </div>
       </Layout>
     </>
